@@ -7,27 +7,27 @@ Visual Studio expects files to be laid out in the following way. Divert from thi
 `-- RocketBall
     |-- lib
     |   |-- GLFW
- 	|	|	`-- [Library files]
- 	|	|
+    |   |   `-- [Library files]
+    |   |
     |   |-- glm
- 	|	|	`-- [Library files]
- 	|	|
+    |   |   `-- [Library files]
+    |   |
     |   |-- imgui
- 	|	|	`-- [Library files]
- 	|	|
+    |   |   `-- [Library files]
+    |   |
     |   `-- [Additional libraries]
- 	|
+    |
     |-- src
     |   |-- game
-    |   |	`-- [Custom engine code files]
- 	|	|
+    |   |   `-- [Custom engine code files]
+    |   |
     |   `-- [LineRenderer codefiles]
-	|
-	|-- VSProject
-	|	`-- [Visual Studio project files]
-	|
-	|-- Working
-	|	`-- [Not sure what this is?]
-	|
-	`-- SimpleFramework.sln
+    |
+    |-- VSProject
+    |   `-- [Visual Studio project files]
+    |
+    |-- Working
+    |   `-- [Not sure what this is?]
+    |
+    `-- SimpleFramework.sln
 ```
