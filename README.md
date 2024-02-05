@@ -3,6 +3,7 @@ RocketBall is a fairly simple physics engine, built on top of the rendering fram
 
 ## Features
  - Objects, represented as `GameThing`s
+  
 Planned:
  - Fixed and Variable timesteps
  - Collision detection
