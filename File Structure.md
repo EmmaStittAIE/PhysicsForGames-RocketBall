@@ -23,10 +23,10 @@ Visual Studio expects files to be laid out in the following way. Divert from thi
     |   |
     |   `-- [LineRenderer codefiles]
     |
-    |-- VSProject
+    |-- vs-project
     |   `-- [Visual Studio project files]
     |
-    |-- Working
+    |-- working
     |   `-- [Not sure what this is?]
     |
     `-- SimpleFramework.sln
