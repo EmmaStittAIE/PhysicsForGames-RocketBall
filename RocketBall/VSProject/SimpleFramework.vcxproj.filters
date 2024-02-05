@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\lib\imgui\imgui.cpp">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lib\imgui\imgui_demo.cpp">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lib\imgui\imgui_draw.cpp">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lib\imgui\imgui_impl_glfw.cpp">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lib\imgui\imgui_impl_opengl3.cpp">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lib\imgui\imgui_tables.cpp">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lib\imgui\imgui_widgets.cpp">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EntryPoint.cpp" />
+    <ClCompile Include="..\src\LineRenderer.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ShaderProgram.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utilities.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ApplicationHarness.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GLFWCallbacks.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\glad.c">
+      <Filter>ThirdParty\GLAD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Game\GameThing.cpp">
+      <Filter>Game\RocketBall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Game\RocketBall.cpp">
+      <Filter>Game\RocketBall</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\lib\imgui\dirent.h">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\imgui\imconfig.h">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\imgui\imgui.h">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\imgui\imgui_impl_glfw.h">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\imgui\imgui_impl_opengl3.h">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\imgui\imgui_impl_opengl3_loader.h">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\imgui\imgui_internal.h">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\imgui\imstb_rectpack.h">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\imgui\imstb_textedit.h">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\imgui\imstb_truetype.h">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\GLFWCallbacks.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Graphics.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\LineRenderer.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Maths.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ShaderProgram.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utilities.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Application.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ApplicationHarness.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\glad.h">
+      <Filter>ThirdParty\GLAD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\khrplatform.h">
+      <Filter>ThirdParty\GLAD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Game\RocketBall.h">
+      <Filter>Game\RocketBall</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Game\GameThing.h">
+      <Filter>Game\RocketBall</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\GLFW\glfw3native.h">
+      <Filter>ThirdParty\GLFW</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lib\GLFW\glfw3.h">
+      <Filter>ThirdParty\GLFW</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{3d6baaba-2f6a-4fc5-b50b-bcb0af684f29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty">
+      <UniqueIdentifier>{0f9d38f9-fdd1-499b-aa4c-526e98d64cbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{7f3b6525-bfba-422f-8a18-4ee5a425e5f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\GLAD">
+      <UniqueIdentifier>{1cbc7840-59f8-473d-bc4c-998fc7756698}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\imgui">
+      <UniqueIdentifier>{af08b8df-298e-486a-bd88-f49c10c0050b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\RocketBall">
+      <UniqueIdentifier>{3f734ded-e177-4ebe-a8a0-771bd48487bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\RocketBall\GameThings">
+      <UniqueIdentifier>{c4dc23f1-e692-4079-b711-8e7b2bdea2b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\GLFW">
+      <UniqueIdentifier>{34b33720-5177-4d36-b726-8c04fd6b9e59}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\lib\GLFW\glfw3.lib">
+      <Filter>ThirdParty\GLFW</Filter>
+    </Library>
+  </ItemGroup>
+</Project>
