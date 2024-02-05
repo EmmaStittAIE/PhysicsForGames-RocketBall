@@ -3,7 +3,7 @@
 #include "Maths.h"
 #include <vector>
 #include "Graphics.h"
-
+#include <string>
 
 class LineRenderer
 {
@@ -55,4 +55,13 @@ public:
 	void Clear();
 	void Compile();
 	void Draw();
+
+
+
+	//Horrible cursed text renderer
+	float RenderString(std::string text, Vec2 pos, float size);
+
+	float RenderChar(char character, Vec2 pos, float size);
+
+	static std::vector<Vec2> GetGlyph(char character);
 };
