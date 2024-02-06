@@ -189,6 +189,7 @@
     <ClInclude Include="..\src\Maths.h" />
     <ClInclude Include="..\src\ShaderProgram.h" />
     <ClInclude Include="..\src\Utilities.h" />
+    <ClInclude Include="RigidBody.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\lib\GLFW\glfw3.lib" />
