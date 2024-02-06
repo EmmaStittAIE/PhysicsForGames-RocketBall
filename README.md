@@ -14,6 +14,7 @@ RocketBall is a fairly simple physics engine, built on top of the rendering fram
  - Fixed & Spring Joints
  - Soft-bodies
  - Ball
+ - Concave 2D meshes
 
 ## Libraries
  - [GLFW 3.3](https://github.com/glfw/glfw/releases)
