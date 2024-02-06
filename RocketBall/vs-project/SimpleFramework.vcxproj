@@ -156,7 +156,7 @@
     <ClCompile Include="..\lib\imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\src\ApplicationHarness.cpp" />
     <ClCompile Include="..\src\EntryPoint.cpp" />
-    <ClCompile Include="..\src\Game\GameThing.cpp" />
+    <ClCompile Include="..\src\Game\GameNode.cpp" />
     <ClCompile Include="..\src\Game\RocketBall.cpp" />
     <ClCompile Include="..\src\glad.c" />
     <ClCompile Include="..\src\GLFWCallbacks.cpp" />
@@ -179,7 +179,7 @@
     <ClInclude Include="..\lib\imgui\imstb_truetype.h" />
     <ClInclude Include="..\src\Application.h" />
     <ClInclude Include="..\src\ApplicationHarness.h" />
-    <ClInclude Include="..\src\Game\GameThing.h" />
+    <ClInclude Include="..\src\Game\GameNode.h" />
     <ClInclude Include="..\src\Game\RocketBall.h" />
     <ClInclude Include="..\src\glad.h" />
     <ClInclude Include="..\src\GLFWCallbacks.h" />

@@ -1,19 +1,19 @@
-#include "GameThing.h"
+#include "GameNode.h"
 
 #include <sstream>
 
-GameThing::GameThing(Vec2 pos, float rad)
+GameNode::GameNode(Vec2 pos, float rad)
 {
 	position = pos;
 	radius = rad;
 }
 
-void GameThing::Update(float delta)
+void GameNode::Update(float delta)
 {
 	position.x += delta;
 }
 
-void GameThing::Draw(LineRenderer* lines)
+void GameNode::Draw(LineRenderer* lines)
 {
 	lines->DrawCircle(position, radius);
 

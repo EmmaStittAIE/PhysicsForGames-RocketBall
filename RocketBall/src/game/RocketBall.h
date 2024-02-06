@@ -3,13 +3,13 @@
 #include <vector>
 
 #include "Application.h"
-#include "GameThing.h"
+#include "GameNode.h"
 
 class RocketBall : public Application
 {
 private:
 
-	std::vector<GameThing> gameThings;
+	std::vector<GameNode> gameThings;
 
 public:
 

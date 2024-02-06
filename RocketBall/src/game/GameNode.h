@@ -3,7 +3,8 @@
 #include "Maths.h"
 #include "LineRenderer.h"
 
-class GameThing
+//
+class GameNode
 {
 public:
 
@@ -11,7 +12,7 @@ public:
 
 	float radius;
 
-	GameThing(Vec2 pos, float rad);
+	GameNode(Vec2 pos, float rad);
 
 	void Update(float delta);
 

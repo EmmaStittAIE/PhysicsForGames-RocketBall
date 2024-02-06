@@ -41,7 +41,7 @@
     <ClCompile Include="..\src\glad.c">
       <Filter>ThirdParty\GLAD</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Game\GameThing.cpp">
+    <ClCompile Include="..\src\Game\GameNode.cpp">
       <Filter>Game\RocketBall</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Game\RocketBall.cpp">
@@ -112,7 +112,7 @@
     <ClInclude Include="..\src\Game\RocketBall.h">
       <Filter>Game\RocketBall</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Game\GameThing.h">
+    <ClInclude Include="..\src\Game\GameNode.h">
       <Filter>Game\RocketBall</Filter>
     </ClInclude>
     <ClInclude Include="..\lib\GLFW\glfw3native.h">

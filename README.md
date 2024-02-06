@@ -2,7 +2,7 @@
 RocketBall is a fairly simple physics engine, built on top of the rendering framework `LineRenderer`.
 
 ## Features
- - Objects, represented as `GameThing`s
+ - GameNodes (the GameObjects of RocketBall)
   
 ### Planned
  - Fixed and Variable timesteps

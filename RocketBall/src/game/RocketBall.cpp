@@ -4,7 +4,7 @@
 
 RocketBall::RocketBall()
 {
-	gameThings.push_back(GameThing(Vec2(0, 0), 1));
+	gameThings.push_back(GameNode(Vec2(0, 0), 1));
 }
 
 void RocketBall::Update(float delta)
