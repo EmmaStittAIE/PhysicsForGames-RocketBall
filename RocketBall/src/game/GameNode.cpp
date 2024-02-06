@@ -2,22 +2,11 @@
 
 #include <sstream>
 
-GameNode::GameNode(Vec2 pos, float rad)
+void GameNode::DebugDraw(LineRenderer* lines)
 {
-	position = pos;
-	radius = rad;
-}
-
-void GameNode::Update(float delta)
-{
-	position.x += delta;
-}
-
-void GameNode::Draw(LineRenderer* lines)
-{
-	lines->DrawCircle(position, radius);
-
 #if _DEBUG
+	lines->DrawCross(position, 0.1);
+
 	// Hadn't heard of this before, seems useful
 	std::stringstream posString;
 

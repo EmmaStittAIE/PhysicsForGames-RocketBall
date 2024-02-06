@@ -4,7 +4,7 @@
 
 RocketBall::RocketBall()
 {
-	gameThings.push_back(GameNode(Vec2(0, 0), 1));
+	gameThings.push_back(GameNode(Vec2(0, 0)));
 }
 
 void RocketBall::Update(float delta)
@@ -16,7 +16,7 @@ void RocketBall::Update(float delta)
 
 	for (int i = 0; i < gameThings.size(); i++)
 	{
-		gameThings[i].Draw(lines);
+		gameThings[i].DebugDraw(lines);
 	}
 }
 

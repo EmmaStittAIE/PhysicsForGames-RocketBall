@@ -41,11 +41,11 @@
     <ClCompile Include="..\src\glad.c">
       <Filter>ThirdParty\GLAD</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Game\GameNode.cpp">
-      <Filter>Game\RocketBall</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Game\RocketBall.cpp">
       <Filter>Game\RocketBall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Game\GameNode.cpp">
+      <Filter>Game\RocketBall\GameNodes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -112,14 +112,14 @@
     <ClInclude Include="..\src\Game\RocketBall.h">
       <Filter>Game\RocketBall</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Game\GameNode.h">
-      <Filter>Game\RocketBall</Filter>
-    </ClInclude>
     <ClInclude Include="..\lib\GLFW\glfw3native.h">
       <Filter>ThirdParty\GLFW</Filter>
     </ClInclude>
     <ClInclude Include="..\lib\GLFW\glfw3.h">
       <Filter>ThirdParty\GLFW</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Game\GameNode.h">
+      <Filter>Game\RocketBall\GameNodes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -141,11 +141,11 @@
     <Filter Include="Game\RocketBall">
       <UniqueIdentifier>{3f734ded-e177-4ebe-a8a0-771bd48487bf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\RocketBall\GameThings">
-      <UniqueIdentifier>{c4dc23f1-e692-4079-b711-8e7b2bdea2b2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ThirdParty\GLFW">
       <UniqueIdentifier>{34b33720-5177-4d36-b726-8c04fd6b9e59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\RocketBall\GameNodes">
+      <UniqueIdentifier>{c4dc23f1-e692-4079-b711-8e7b2bdea2b2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
