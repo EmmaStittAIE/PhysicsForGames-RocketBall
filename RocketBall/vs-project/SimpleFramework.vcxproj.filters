@@ -47,6 +47,9 @@
     <ClCompile Include="..\src\Game\GameNode.cpp">
       <Filter>Game\RocketBall\GameNodes</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\game\RigidBody.cpp">
+      <Filter>Game\RocketBall\GameNodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\imgui\dirent.h">
@@ -121,7 +124,7 @@
     <ClInclude Include="..\src\Game\GameNode.h">
       <Filter>Game\RocketBall\GameNodes</Filter>
     </ClInclude>
-    <ClInclude Include="RigidBody.h">
+    <ClInclude Include="..\src\game\RigidBody.h">
       <Filter>Game\RocketBall\GameNodes</Filter>
     </ClInclude>
   </ItemGroup>

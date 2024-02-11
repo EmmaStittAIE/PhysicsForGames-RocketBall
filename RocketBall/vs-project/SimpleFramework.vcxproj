@@ -157,6 +157,7 @@
     <ClCompile Include="..\src\ApplicationHarness.cpp" />
     <ClCompile Include="..\src\EntryPoint.cpp" />
     <ClCompile Include="..\src\Game\GameNode.cpp" />
+    <ClCompile Include="..\src\game\RigidBody.cpp" />
     <ClCompile Include="..\src\Game\RocketBall.cpp" />
     <ClCompile Include="..\src\glad.c" />
     <ClCompile Include="..\src\GLFWCallbacks.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="..\src\Application.h" />
     <ClInclude Include="..\src\ApplicationHarness.h" />
     <ClInclude Include="..\src\Game\GameNode.h" />
+    <ClInclude Include="..\src\game\RigidBody.h" />
     <ClInclude Include="..\src\Game\RocketBall.h" />
     <ClInclude Include="..\src\glad.h" />
     <ClInclude Include="..\src\GLFWCallbacks.h" />
@@ -189,7 +191,6 @@
     <ClInclude Include="..\src\Maths.h" />
     <ClInclude Include="..\src\ShaderProgram.h" />
     <ClInclude Include="..\src\Utilities.h" />
-    <ClInclude Include="RigidBody.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\lib\GLFW\glfw3.lib" />
