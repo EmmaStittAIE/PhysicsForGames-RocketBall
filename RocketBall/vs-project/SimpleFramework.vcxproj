@@ -189,6 +189,7 @@
     <ClInclude Include="..\src\khrplatform.h" />
     <ClInclude Include="..\src\LineRenderer.h" />
     <ClInclude Include="..\src\Maths.h" />
+    <ClInclude Include="..\src\PhysicsConsts.h" />
     <ClInclude Include="..\src\ShaderProgram.h" />
     <ClInclude Include="..\src\Utilities.h" />
   </ItemGroup>

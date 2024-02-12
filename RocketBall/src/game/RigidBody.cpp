@@ -1,5 +1,45 @@
 #include "RigidBody.h"
 
+void RigidBody::Update(float delta)
+{
+	if (m_useGrav)
+	{
+		ApplyForce(physics::gravity * physics::vec2Down);
+	}
+
+	// Velocity
+	m_velocity += m_acceleration + (m_force / m_mass) * delta;
+
+	// Position
+	m_position += m_velocity * delta;
+
+	// Cleanup
+	m_force = { 0, 0 };
+}
+
+void RigidBody::DebugDraw(LineRenderer* lines)
+{
+	// is this good practise
+	GameNode::DebugDraw(lines);
+
+#if _DEBUG
+	lines->DrawCircle(m_position, m_radius);
+#endif
+}
+
+void RigidBody::CursorHoldEvent(Vec2 cursorPos)
+{
+	Vec2 cursorDisplacement = cursorPos - m_position;
+	if (glm::length(cursorDisplacement) <= m_radius)
+	{
+		// Apply a force that is stronger the closer the cursor is to the centre of the circle
+		//Vec2 inverseForce = (m_radius - glm::length(cursorDisplacement)) * glm::normalize(cursorDisplacement);
+		//ApplyForce(-inverseForce * 10.0f);
+
+		ApplyForce(glm::normalize(-cursorDisplacement) * 15.0f);
+	}
+}
+
 void RigidBody::ApplyImpulse(Vec2 impulse)
 {
 	m_velocity += impulse / m_mass;

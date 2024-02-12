@@ -1,28 +1,37 @@
 #pragma once
 
 #include "GameNode.h"
+#include "PhysicsConsts.h"
 
 // Temporarily built-in circle collider
-class RigidBody : GameNode
+class RigidBody : public GameNode
 {
 private:
-	// circle collider stuff
+	// Circle collider stuff
 	float m_radius;
 
-	// rigidbody stuff
-	float m_mass;
-
+	// Rigidbody stuff
 	Vec2 m_velocity;
 	Vec2 m_acceleration;
 
-	// impulses applied externally
+	// Impulses applied externally
 	//Vec2 m_impulse;
-	// force applied externally
+	// Force applied externally
 	Vec2 m_force;
 
+	float m_mass;
+
 public:
-	RigidBody(Vec2 pos, float mass, float rad)
-		: GameNode(pos), m_mass(mass), m_radius(rad), m_velocity(0, 0), m_acceleration(0, 0) {}
+	bool m_useGrav;
+
+	RigidBody(Vec2 position, float mass, float radius, bool useGrav = true)
+		: GameNode(position), m_mass(mass), m_radius(radius), m_useGrav(useGrav), m_velocity(0, 0), m_acceleration(0, 0), m_force(0, 0) {}
+
+	void Update(float delta) override;
+
+	void DebugDraw(LineRenderer* lines) override;
+
+	void CursorHoldEvent(Vec2 cursorPos) override;
 
 	void ApplyImpulse(Vec2 impulse);
 

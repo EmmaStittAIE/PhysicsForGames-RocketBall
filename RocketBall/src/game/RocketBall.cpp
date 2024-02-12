@@ -4,23 +4,42 @@
 
 RocketBall::RocketBall()
 {
-	gameThings.push_back(GameNode(Vec2(0, 0)));
+	gameNodes.push_back(new RigidBody(Vec2(0, 0), 2, 2, false));
+	gameNodes.push_back(new RigidBody(Vec2(2, 0), 1, 1, false));
+	gameNodes.push_back(new RigidBody(Vec2(-5, -12), 5, 5, false));
 }
 
 void RocketBall::Update(float delta)
 {
-	for (int i = 0; i < gameThings.size(); i++)
+	// Input
+	if (leftMouseDown)
 	{
-		gameThings[i].Update(delta);
+		for (int i = 0; i < gameNodes.size(); i++)
+		{
+			gameNodes[i]->CursorHoldEvent(cursorPos);
+		}
 	}
 
-	for (int i = 0; i < gameThings.size(); i++)
+	for (int i = 0; i < gameNodes.size(); i++)
 	{
-		gameThings[i].DebugDraw(lines);
+		gameNodes[i]->Update(delta);
+	}
+
+	for (int i = 0; i < gameNodes.size(); i++)
+	{
+		gameNodes[i]->DebugDraw(lines);
 	}
 }
 
 void RocketBall::OnLeftClick()
 {
 	std::cout << "Wow a click!\n";
+}
+
+RocketBall::~RocketBall()
+{
+	for (int i = 0; i < gameNodes.size(); i++)
+	{
+		delete(gameNodes[i]);
+	}
 }

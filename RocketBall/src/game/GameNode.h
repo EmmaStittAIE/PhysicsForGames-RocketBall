@@ -14,19 +14,24 @@ private:
 	std::vector<GameNode*> m_children;
 
 public:
-	std::string name;
+	std::string m_name;
 
-	Vec2 position;
+	Vec2 m_position;
 
 
 	GameNode(float xPos, float yPos) 
-		: position(xPos, yPos), m_parent(nullptr) {};
+		: m_position(xPos, yPos), m_parent(nullptr) {};
 	GameNode(Vec2 pos)
-		: position(pos), m_parent(nullptr) {};
+		: m_position(pos), m_parent(nullptr) {};
 
+	// Update with a fixed timestep
 	virtual void Update(float delta) {};
 
-	virtual void FixedUpdate(float fixedDelta) {};
-
 	virtual void DebugDraw(LineRenderer* lines);
+
+	virtual void CursorClickEvent(Vec2 cursorPos) {};
+	virtual void CursorHoldEvent(Vec2 cursorPos) {};
+	virtual void CursorReleaseEvent(Vec2 cursorPos) {};
+
+	~GameNode();
 };

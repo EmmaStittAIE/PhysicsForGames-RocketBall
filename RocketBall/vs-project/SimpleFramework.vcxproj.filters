@@ -127,6 +127,9 @@
     <ClInclude Include="..\src\game\RigidBody.h">
       <Filter>Game\RocketBall\GameNodes</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\PhysicsConsts.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">

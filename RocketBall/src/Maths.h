@@ -11,4 +11,4 @@
 typedef glm::vec2 Vec2;
 typedef glm::vec3 Vec3;
 
-#define PI 3.14159265f
+const float PI = 3.14159265f;
