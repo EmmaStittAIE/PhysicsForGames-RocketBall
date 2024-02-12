@@ -50,6 +50,9 @@
     <ClCompile Include="..\src\game\RigidBody.cpp">
       <Filter>Game\RocketBall\GameNodes</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\game\Circle.cpp">
+      <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\imgui\dirent.h">
