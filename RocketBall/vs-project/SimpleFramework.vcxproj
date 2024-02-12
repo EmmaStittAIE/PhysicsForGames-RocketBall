@@ -180,9 +180,12 @@
     <ClInclude Include="..\lib\imgui\imstb_truetype.h" />
     <ClInclude Include="..\src\Application.h" />
     <ClInclude Include="..\src\ApplicationHarness.h" />
+    <ClInclude Include="..\src\game\Circle.h" />
+    <ClInclude Include="..\src\game\CollisionFunctions.h" />
     <ClInclude Include="..\src\Game\GameNode.h" />
     <ClInclude Include="..\src\game\RigidBody.h" />
     <ClInclude Include="..\src\Game\RocketBall.h" />
+    <ClInclude Include="..\src\game\Shape.h" />
     <ClInclude Include="..\src\glad.h" />
     <ClInclude Include="..\src\GLFWCallbacks.h" />
     <ClInclude Include="..\src\Graphics.h" />

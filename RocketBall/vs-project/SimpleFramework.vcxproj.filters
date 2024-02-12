@@ -130,6 +130,15 @@
     <ClInclude Include="..\src\PhysicsConsts.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\game\Shape.h">
+      <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\game\Circle.h">
+      <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\game\CollisionFunctions.h">
+      <Filter>Game\RocketBall</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -155,6 +164,9 @@
     </Filter>
     <Filter Include="Game\RocketBall\GameNodes">
       <UniqueIdentifier>{c4dc23f1-e692-4079-b711-8e7b2bdea2b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\RocketBall\GameNodes\Shapes">
+      <UniqueIdentifier>{23cbf635-b68f-4f6d-a495-178adb846848}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

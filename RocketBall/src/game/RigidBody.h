@@ -7,10 +7,6 @@
 class RigidBody : public GameNode
 {
 private:
-	// Circle collider stuff
-	float m_radius;
-
-	// Rigidbody stuff
 	Vec2 m_velocity;
 	Vec2 m_acceleration;
 
@@ -21,15 +17,15 @@ private:
 
 	float m_mass;
 
-public:
 	bool m_useGrav;
 
-	RigidBody(Vec2 position, float mass, float radius, bool useGrav = true)
-		: GameNode(position), m_mass(mass), m_radius(radius), m_useGrav(useGrav), m_velocity(0, 0), m_acceleration(0, 0), m_force(0, 0) {}
+public:
+	RigidBody(float xPos, float yPos, float mass, bool useGrav = true, GameNode* parent = nullptr)
+		: GameNode(xPos, yPos, parent), m_mass(mass), m_useGrav(useGrav), m_velocity(0, 0), m_acceleration(0, 0), m_force(0, 0) {}
+	RigidBody(Vec2 position, float mass, bool useGrav = true, GameNode* parent = nullptr)
+		: GameNode(position, parent), m_mass(mass), m_useGrav(useGrav), m_velocity(0, 0), m_acceleration(0, 0), m_force(0, 0) {}
 
 	void Update(float delta) override;
-
-	void DebugDraw(LineRenderer* lines) override;
 
 	void CursorHoldEvent(Vec2 cursorPos) override;
 

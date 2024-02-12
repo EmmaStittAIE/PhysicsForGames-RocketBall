@@ -16,13 +16,13 @@ private:
 public:
 	std::string m_name;
 
-	Vec2 m_position;
+	Vec2 m_localPosition;
 
 
-	GameNode(float xPos, float yPos) 
-		: m_position(xPos, yPos), m_parent(nullptr) {};
-	GameNode(Vec2 pos)
-		: m_position(pos), m_parent(nullptr) {};
+	GameNode(float xPos, float yPos, GameNode* parent = nullptr) 
+		: m_localPosition(xPos, yPos), m_parent(parent) {};
+	GameNode(Vec2 pos, GameNode* parent = nullptr)
+		: m_localPosition(pos), m_parent(parent) {};
 
 	// Update with a fixed timestep
 	virtual void Update(float delta) {};
@@ -32,6 +32,8 @@ public:
 	virtual void CursorClickEvent(Vec2 cursorPos) {};
 	virtual void CursorHoldEvent(Vec2 cursorPos) {};
 	virtual void CursorReleaseEvent(Vec2 cursorPos) {};
+
+	Vec2 GetGlobalPos();
 
 	~GameNode();
 };

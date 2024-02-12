@@ -4,9 +4,9 @@
 
 RocketBall::RocketBall()
 {
-	gameNodes.push_back(new RigidBody(Vec2(0, 0), 2, 2, false));
-	gameNodes.push_back(new RigidBody(Vec2(2, 0), 1, 1, false));
-	gameNodes.push_back(new RigidBody(Vec2(-5, -12), 5, 5, false));
+	gameNodes.push_back(new Circle(0, 0, 2, 2, false));
+	gameNodes.push_back(new Circle(2, 0, 1, 1, false));
+	gameNodes.push_back(new Circle(-5, -12, 5, 5, false));
 }
 
 void RocketBall::Update(float delta)

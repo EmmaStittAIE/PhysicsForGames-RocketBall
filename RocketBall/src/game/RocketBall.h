@@ -3,8 +3,7 @@
 #include <vector>
 
 #include "Application.h"
-#include "GameNode.h"
-#include "RigidBody.h"
+#include "Circle.h"
 
 class RocketBall : public Application
 {
