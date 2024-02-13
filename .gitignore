@@ -7,4 +7,4 @@ RocketBall/lib/*
 x64
 
 # Notepad++
-.bak
+*.bak
