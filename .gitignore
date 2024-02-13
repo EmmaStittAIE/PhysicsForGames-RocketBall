@@ -5,3 +5,6 @@ RocketBall/lib/*
 # Visual Studio
 .vs/
 x64
+
+# Notepad++
+.bak

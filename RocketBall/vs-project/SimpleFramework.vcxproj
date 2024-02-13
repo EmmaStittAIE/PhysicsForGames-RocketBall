@@ -157,12 +157,14 @@
     <ClCompile Include="..\src\ApplicationHarness.cpp" />
     <ClCompile Include="..\src\EntryPoint.cpp" />
     <ClCompile Include="..\src\game\Circle.cpp" />
+    <ClCompile Include="..\src\game\CollisionFunctions.cpp" />
     <ClCompile Include="..\src\Game\GameNode.cpp" />
     <ClCompile Include="..\src\game\RigidBody.cpp" />
     <ClCompile Include="..\src\Game\RocketBall.cpp" />
     <ClCompile Include="..\src\glad.c" />
     <ClCompile Include="..\src\GLFWCallbacks.cpp" />
     <ClCompile Include="..\src\LineRenderer.cpp" />
+    <ClCompile Include="..\src\Logger.cpp" />
     <ClCompile Include="..\src\ShaderProgram.cpp" />
     <ClCompile Include="..\src\Utilities.cpp" />
   </ItemGroup>
@@ -183,6 +185,7 @@
     <ClInclude Include="..\src\ApplicationHarness.h" />
     <ClInclude Include="..\src\game\Circle.h" />
     <ClInclude Include="..\src\game\CollisionFunctions.h" />
+    <ClInclude Include="..\src\game\CollisionInfo.h" />
     <ClInclude Include="..\src\Game\GameNode.h" />
     <ClInclude Include="..\src\game\RigidBody.h" />
     <ClInclude Include="..\src\Game\RocketBall.h" />
@@ -192,6 +195,7 @@
     <ClInclude Include="..\src\Graphics.h" />
     <ClInclude Include="..\src\khrplatform.h" />
     <ClInclude Include="..\src\LineRenderer.h" />
+    <ClInclude Include="..\src\Logger.h" />
     <ClInclude Include="..\src\Maths.h" />
     <ClInclude Include="..\src\PhysicsConsts.h" />
     <ClInclude Include="..\src\ShaderProgram.h" />

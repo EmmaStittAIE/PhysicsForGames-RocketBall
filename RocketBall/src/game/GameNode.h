@@ -7,16 +7,16 @@
 
 class GameNode
 {
-private:
+protected:
 	// TODO: implement scene tree
 	GameNode* m_parent;
 
 	std::vector<GameNode*> m_children;
 
+	Vec2 m_localPosition;
+
 public:
 	std::string m_name;
-
-	Vec2 m_localPosition;
 
 
 	GameNode(float xPos, float yPos, GameNode* parent = nullptr) 
@@ -29,11 +29,12 @@ public:
 
 	virtual void DebugDraw(LineRenderer* lines);
 
-	virtual void CursorClickEvent(Vec2 cursorPos) {};
-	virtual void CursorHoldEvent(Vec2 cursorPos) {};
-	virtual void CursorReleaseEvent(Vec2 cursorPos) {};
-
+	// Position get/setters
 	Vec2 GetGlobalPos();
+	void SetGlobalPos(Vec2 pos);
+	Vec2 GetLocalPos();
+	void SetLocalPos(Vec2 pos);
+	void MovePos(Vec2 distance);
 
 	~GameNode();
 };

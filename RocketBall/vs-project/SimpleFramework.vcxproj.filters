@@ -53,6 +53,12 @@
     <ClCompile Include="..\src\game\Circle.cpp">
       <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\game\CollisionFunctions.cpp">
+      <Filter>Game\RocketBall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Logger.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\imgui\dirent.h">
@@ -140,6 +146,12 @@
       <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\game\CollisionFunctions.h">
+      <Filter>Game\RocketBall</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Logger.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\game\CollisionInfo.h">
       <Filter>Game\RocketBall</Filter>
     </ClInclude>
   </ItemGroup>

@@ -3,12 +3,20 @@
 #include <vector>
 
 #include "Application.h"
-#include "Circle.h"
+
+class GameNode;
+class Shape;
 
 class RocketBall : public Application
 {
 private:
-	std::vector<GameNode*> gameNodes;
+	std::vector<GameNode*> m_gameNodes;
+	std::vector<Shape*> m_shapes;
+
+	Shape* m_shapeOnMouse = nullptr;
+	Shape* m_shapeToFling = nullptr;
+
+	float m_flingMultiplier = 5;
 
 public:
 	RocketBall();
@@ -16,6 +24,9 @@ public:
 	void Update(float delta) override;
 
 	void OnLeftClick() override;
+	void OnLeftRelease() override;
+	void OnRightClick() override;
+	void OnRightRelease() override;
 
 	~RocketBall();
 };

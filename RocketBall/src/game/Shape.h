@@ -11,11 +11,14 @@ enum ShapeType
 
 class Shape : public RigidBody
 {
-public:
-	ShapeType type;
+protected:
+	Shape(float xPos, float yPos, float mass, ShapeType type, Vec3 colour = { 1, 1, 1 }, bool useGrav = true, GameNode* parent = nullptr)
+		: RigidBody(xPos, yPos, mass, useGrav, parent), m_shapeType(type), m_colour(colour) {};
+	Shape(Vec2 position, float mass, ShapeType type, Vec3 colour = { 1, 1, 1 }, bool useGrav = true, GameNode* parent = nullptr)
+		: RigidBody(position, mass, useGrav, parent), m_shapeType(type), m_colour(colour) {};
 
-	Shape(float xPos, float yPos, float mass, bool useGrav = true, GameNode* parent = nullptr)
-		: RigidBody(xPos, yPos, mass, useGrav, parent) {};
-	Shape(Vec2 position, float mass, bool useGrav = true, GameNode* parent = nullptr)
-		: RigidBody(position, mass, useGrav, parent) {};
+public:
+	ShapeType m_shapeType;
+	
+	Vec3 m_colour;
 };
