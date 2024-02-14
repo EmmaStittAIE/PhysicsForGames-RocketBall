@@ -2,14 +2,17 @@
 
 #include "RocketBall.h"
 #include "Circle.h"
+#include "Box.h"
 #include "CollisionFunctions.h"
 #include "CollisionInfo.h"
 
 RocketBall::RocketBall()
 {
 	m_gameNodes.push_back(new Circle(0, 0, 2, 2, { 0, 1, 0 }, false));
+	m_gameNodes.push_back(new Box(5, -3, 2, 1, 1, { 0, 1, 0 }, false));
 	m_gameNodes.push_back(new Circle(-3, 4, 1, 1, { 0, 1, 0 }, false));
 	m_gameNodes.push_back(new Circle(-5, -12, 5, 5, { 0, 1, 0 }, false));
+	m_gameNodes.push_back(new Box(5, 12, 4, 2, 2, { 0, 1, 0 }, false));
 
 	// Get shapes from m_gameNodes
 	for (int i = 0; i < m_gameNodes.size(); i++)

@@ -59,6 +59,9 @@
     <ClCompile Include="..\src\Logger.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\game\Box.cpp">
+      <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\imgui\dirent.h">
@@ -153,6 +156,9 @@
     </ClInclude>
     <ClInclude Include="..\src\game\CollisionInfo.h">
       <Filter>Game\RocketBall</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\game\Box.h">
+      <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

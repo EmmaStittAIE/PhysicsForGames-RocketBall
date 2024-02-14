@@ -156,6 +156,7 @@
     <ClCompile Include="..\lib\imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\src\ApplicationHarness.cpp" />
     <ClCompile Include="..\src\EntryPoint.cpp" />
+    <ClCompile Include="..\src\game\Box.cpp" />
     <ClCompile Include="..\src\game\Circle.cpp" />
     <ClCompile Include="..\src\game\CollisionFunctions.cpp" />
     <ClCompile Include="..\src\Game\GameNode.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="..\lib\imgui\imstb_truetype.h" />
     <ClInclude Include="..\src\Application.h" />
     <ClInclude Include="..\src\ApplicationHarness.h" />
+    <ClInclude Include="..\src\game\Box.h" />
     <ClInclude Include="..\src\game\Circle.h" />
     <ClInclude Include="..\src\game\CollisionFunctions.h" />
     <ClInclude Include="..\src\game\CollisionInfo.h" />

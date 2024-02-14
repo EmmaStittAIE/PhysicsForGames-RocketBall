@@ -3,7 +3,6 @@
 #include "GameNode.h"
 #include "PhysicsConsts.h"
 
-// Temporarily built-in circle collider
 class RigidBody : public GameNode
 {
 protected:
