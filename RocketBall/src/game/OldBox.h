@@ -1,4 +1,6 @@
-#pragma once
+// DEPRECATED
+
+/*#pragma once
 
 #include "Shape.h"
 
@@ -20,4 +22,4 @@ public:
 	float GetHalfWidth();
 	float GetHeight();
 	float GetHalfHeight();
-};
+};*/

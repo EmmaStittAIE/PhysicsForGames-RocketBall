@@ -1,12 +1,13 @@
 #pragma once
 
 #include "Maths.h"
-#include "Shape.h"
+
+class CollisionShape;
 
 struct CollisionInfo
 {
-	Shape* shape1 = nullptr;
-	Shape* shape2 = nullptr;
+	CollisionShape* shape1 = nullptr;
+	CollisionShape* shape2 = nullptr;
 
 	Vec2 normal = { 0, 0 };
 	

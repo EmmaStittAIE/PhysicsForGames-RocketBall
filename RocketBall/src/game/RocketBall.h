@@ -3,18 +3,19 @@
 #include <vector>
 
 #include "Application.h"
+#include "GameNode.h"
 
-class GameNode;
-class Shape;
+class CollisionShape;
+class PhysicsBody;
 
 class RocketBall : public Application
 {
 private:
-	std::vector<GameNode*> m_gameNodes;
-	std::vector<Shape*> m_shapes;
+	GameNode m_rootNode;
+	std::vector<CollisionShape*> m_collisionShapes;
 
-	Shape* m_shapeOnMouse = nullptr;
-	Shape* m_shapeToFling = nullptr;
+	PhysicsBody* m_bodyOnMouse = nullptr;
+	PhysicsBody* m_bodyToFling = nullptr;
 
 	float m_flingMultiplier = 5;
 
@@ -28,5 +29,7 @@ public:
 	void OnRightClick() override;
 	void OnRightRelease() override;
 
-	~RocketBall();
+	void UpdateChildren(GameNode* root, float delta);
+	void DebugDrawChildren(GameNode* root);
+	std::vector<CollisionShape*> GetShapesFromChildren(GameNode* root);
 };

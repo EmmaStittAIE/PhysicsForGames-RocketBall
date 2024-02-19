@@ -1,12 +1,12 @@
 #include "CollisionFunctions.h"
 
 #include "CollisionInfo.h"
-#include "Shape.h"
-#include "Circle.h"
-#include "Box.h"
+#include "CollisionShape.h"
+#include "CollisionCircle.h"
+//#include "CollisionBox.h"
 #include "Logger.h"
 
-CollisionInfo CollisionFunctions::CollideShapes(Shape* shape1, Shape* shape2)
+CollisionInfo CollisionFunctions::CollideShapes(CollisionShape* shape1, CollisionShape* shape2)
 {
 	switch (shape1->m_shapeType)
 	{
@@ -14,14 +14,14 @@ CollisionInfo CollisionFunctions::CollideShapes(Shape* shape1, Shape* shape2)
 		switch (shape2->m_shapeType)
 		{
 		case ShapeType::circle:
-			return CollideCircleWithCircle((Circle*)shape1, (Circle*)shape2);
+			return CollideCircleWithCircle((CollisionCircle*)shape1, (CollisionCircle*)shape2);
 
 		case ShapeType::box:
-			return CollideCircleWithBox((Circle*)shape1, (Box*)shape2);
+			return CollideCircleWithBox((CollisionCircle*)shape1, (CollisionBox*)shape2);
 
 		case ShapeType::plane:
 			//return CollideCircleWithPlane((Circle*)circle1, (Plane*)circle2);
-			Logger::LogWarning("Collison between 'circle' and 'plane' is not implimented");
+			Logger::LogWarning("Collison between 'circle' and 'plane' is not implemented");
 			return CollisionInfo();
 
 		default:
@@ -33,14 +33,14 @@ CollisionInfo CollisionFunctions::CollideShapes(Shape* shape1, Shape* shape2)
 		switch (shape2->m_shapeType)
 		{
 		case ShapeType::circle:
-			return CollideCircleWithBox((Circle*)shape2, (Box*)shape1);
+			return CollideCircleWithBox((CollisionCircle*)shape2, (CollisionBox*)shape1);
 
 		case ShapeType::box:
-			return CollideBoxWithBox((Box*)shape1, (Box*)shape2);
+			return CollideBoxWithBox((CollisionBox*)shape1, (CollisionBox*)shape2);
 
 		case ShapeType::plane:
 			//return CollideBoxWithPlane((Box*)circle1, (Plane*)circle2);
-			Logger::LogWarning("Collison between 'circle' and 'plane' is not implimented");
+			Logger::LogWarning("Collison between 'circle' and 'plane' is not implemented");
 			return CollisionInfo();
 
 		default:
@@ -54,14 +54,14 @@ CollisionInfo CollisionFunctions::CollideShapes(Shape* shape1, Shape* shape2)
 	}
 }
 
-CollisionInfo CollisionFunctions::CollideCircleWithCircle(Circle* circle1, Circle* circle2)
+CollisionInfo CollisionFunctions::CollideCircleWithCircle(CollisionCircle* circle1, CollisionCircle* circle2)
 {
 	CollisionInfo collision;
 
 	Vec2 displacement = circle2->GetGlobalPos() - circle1->GetGlobalPos();
 
 	// If displacement is <= the combined radius of both shapes, then a collision has occurred
-	float combinedRad = circle1->m_radius + circle2->m_radius;
+	float combinedRad = circle1->GetRadius() + circle2->GetRadius();
 	float distance = glm::length(displacement);
 	if (distance <= combinedRad)
 	{
@@ -76,9 +76,9 @@ CollisionInfo CollisionFunctions::CollideCircleWithCircle(Circle* circle1, Circl
 	return collision;
 }
 
-CollisionInfo CollisionFunctions::CollideCircleWithBox(Circle* circle, Box* box)
+CollisionInfo CollisionFunctions::CollideCircleWithBox(CollisionCircle* circle, CollisionBox* box)
 {
-	CollisionInfo collision;
+	/*CollisionInfo collision;
 
 	Vec2 circlePos = circle->GetGlobalPos();
 	Vec2 boxPos = box->GetGlobalPos();
@@ -90,21 +90,22 @@ CollisionInfo CollisionFunctions::CollideCircleWithBox(Circle* circle, Box* box)
 
 	Vec2 displacement = clampedPoint - circlePos;
 	float distance = glm::length(displacement);
-	if (distance <= circle->m_radius)
+	if (distance <= circle->GetRadius())
 	{
 		collision.shape1 = circle;
 		collision.shape2 = box;
 
-		collision.penetrationDepth = circle->m_radius - distance;
+		collision.penetrationDepth = circle->GetRadius() - distance;
 		collision.normal = glm::normalize(displacement);
 	}
 
-	return collision;
+	return collision;*/
+	return CollisionInfo();
 }
 
-CollisionInfo CollisionFunctions::CollideBoxWithBox(Box* box1, Box* box2)
+CollisionInfo CollisionFunctions::CollideBoxWithBox(CollisionBox* box1, CollisionBox* box2)
 {
-	CollisionInfo collision;
+	/*CollisionInfo collision;
 
 	Vec2 positionB1 = box1->GetGlobalPos();
 	Vec2 positionB2 = box2->GetGlobalPos();
@@ -163,7 +164,8 @@ CollisionInfo CollisionFunctions::CollideBoxWithBox(Box* box1, Box* box2)
 		Logger::LogError("'indexOfSmallest' is out of bounds");
 	}
 
-	return collision;
+	return collision;*/
+	return CollisionInfo();
 }
 
 void CollisionFunctions::DepenetrateShapes(CollisionInfo collision)
@@ -175,15 +177,15 @@ void CollisionFunctions::DepenetrateShapes(CollisionInfo collision)
 	}
 }
 
-bool CollisionFunctions::DoesPointHitShape(Vec2 point, Shape* shape)
+bool CollisionFunctions::DoesPointHitShape(Vec2 point, CollisionShape* shape)
 {
 	switch (shape->m_shapeType)
 	{
 	case ShapeType::circle:
-		return DoesPointHitCircle(point, (Circle*)shape);
+		return DoesPointHitCircle(point, (CollisionCircle*)shape);
 
 	case ShapeType::box:
-		return DoesPointHitBox(point, (Box*)shape);
+		return DoesPointHitBox(point, (CollisionBox*)shape);
 
 	case ShapeType::plane:
 		//return DoesPointHitPlane(point, (Plane*)shape);
@@ -199,19 +201,20 @@ bool CollisionFunctions::DoesPointHitShape(Vec2 point, Shape* shape)
 	return false;
 }
 
-bool CollisionFunctions::DoesPointHitCircle(Vec2 point, Circle* circle)
+bool CollisionFunctions::DoesPointHitCircle(Vec2 point, CollisionCircle* circle)
 {
 	Vec2 displacement = point - circle->GetGlobalPos();
 
-	return glm::length(displacement) <= circle->m_radius;
+	return glm::length(displacement) <= circle->GetRadius();
 }
 
-bool CollisionFunctions::DoesPointHitBox(Vec2 point, Box* box)
+bool CollisionFunctions::DoesPointHitBox(Vec2 point, CollisionBox* box)
 {
-	Vec2 boxPos = box->GetGlobalPos();
+	/*Vec2 boxPos = box->GetGlobalPos();
 	Vec2 halfExtents = { box->GetHalfWidth(), box->GetHalfHeight() };
 
 	Vec2 clampedPoint = glm::clamp(point, boxPos - halfExtents, boxPos + halfExtents);
 
-	return clampedPoint == point;
+	return clampedPoint == point;*/
+	return false;
 }

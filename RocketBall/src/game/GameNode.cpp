@@ -1,55 +1,39 @@
 #include "GameNode.h"
 
-#include <sstream>
-
-void GameNode::DebugDraw(LineRenderer* lines)
+GameNode* GameNode::GetParent()
 {
-	lines->SetColour({ 1, 1, 1 });
-
-	lines->DrawCross(m_localPosition, 0.1);
-
-	// hadn't heard of this before, seems useful
-	std::stringstream posString;
-
-	posString << "Pos: (" << m_localPosition.x << ", " << m_localPosition.y << ")";
-	lines->RenderString(posString.str(), m_localPosition, 0.4);
+	return m_parent;
 }
 
-Vec2 GameNode::GetGlobalPos()
+const std::vector<GameNode*>* GameNode::GetChildren()
 {
-	if (m_parent != nullptr)
+	return &m_children;
+}
+
+void GameNode::AddChild(GameNode* child)
+{
+	if (child->m_parent != nullptr)
 	{
-		return m_localPosition + m_parent->GetGlobalPos();
+		child->m_parent->RemoveChild(child);
 	}
 
-	return m_localPosition;
+	m_children.push_back(child);
+
+	child->m_parent = this;
 }
 
-void GameNode::SetGlobalPos(Vec2 pos)
+void GameNode::RemoveChild(GameNode* child)
 {
-	Vec2 parentPos = { 0,0 };
+	child->m_parent = nullptr;
 
-	if (m_parent != nullptr)
+	for (int i = 0; i < m_children.size(); i++)
 	{
-		Vec2 parentPos =  m_parent->GetGlobalPos();
+		if (m_children[i] == child)
+		{
+			m_children.erase(m_children.begin() + i);
+			return;
+		}
 	}
-
-	m_localPosition = pos - parentPos;
-}
-
-Vec2 GameNode::GetLocalPos()
-{
-	return m_localPosition;
-}
-
-void GameNode::SetLocalPos(Vec2 pos)
-{
-	m_localPosition = pos;
-}
-
-void GameNode::MovePos(Vec2 distance)
-{
-	m_localPosition += distance;
 }
 
 GameNode::~GameNode()

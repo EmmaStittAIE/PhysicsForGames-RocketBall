@@ -13,28 +13,25 @@ protected:
 
 	std::vector<GameNode*> m_children;
 
-	Vec2 m_localPosition;
-
 public:
 	std::string m_name;
 
+	Vec3 m_debugColour;
 
-	GameNode(float xPos, float yPos, GameNode* parent = nullptr) 
-		: m_localPosition(xPos, yPos), m_parent(parent) {};
-	GameNode(Vec2 pos, GameNode* parent = nullptr)
-		: m_localPosition(pos), m_parent(parent) {};
+	GameNode(float xPos, float yPos, Vec3 debugColour = { 1, 1, 1 })
+		: m_debugColour(debugColour), m_parent(nullptr) {};
+	GameNode(Vec2 pos, Vec3 debugColour = { 1, 1, 1 })
+		: m_debugColour(debugColour), m_parent(nullptr) {};
 
 	// Update with a fixed timestep
 	virtual void Update(float delta) {};
+	virtual void DebugDraw(LineRenderer* lines) {};
 
-	virtual void DebugDraw(LineRenderer* lines);
+	GameNode* GetParent();
 
-	// Position get/setters
-	Vec2 GetGlobalPos();
-	void SetGlobalPos(Vec2 pos);
-	Vec2 GetLocalPos();
-	void SetLocalPos(Vec2 pos);
-	void MovePos(Vec2 distance);
+	const std::vector<GameNode*>* GetChildren();
+	void AddChild(GameNode* child);
+	void RemoveChild(GameNode* child);
 
 	~GameNode();
 };

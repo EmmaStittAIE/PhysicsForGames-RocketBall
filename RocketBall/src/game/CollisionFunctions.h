@@ -3,29 +3,29 @@
 #include "Maths.h"
 
 struct CollisionInfo;
-class Shape;
-class Circle;
-class Box;
-class Plane;
+class CollisionShape;
+class CollisionCircle;
+class CollisionBox;
+class CollisionPlane;
 
 namespace CollisionFunctions
 {
 	// Collision detection
-	extern CollisionInfo CollideShapes(Shape* shape1, Shape* shape2);
+	extern CollisionInfo CollideShapes(CollisionShape* shape1, CollisionShape* shape2);
 
-	extern CollisionInfo CollideCircleWithCircle(Circle* shape1, Circle* shape2);
-	extern CollisionInfo CollideCircleWithBox(Circle* shape1, Box* shape2);
-	extern CollisionInfo CollideCircleWithPlane(Circle* shape1, Plane* shape2);
+	extern CollisionInfo CollideCircleWithCircle(CollisionCircle* shape1, CollisionCircle* shape2);
+	extern CollisionInfo CollideCircleWithBox(CollisionCircle* shape1, CollisionBox* shape2);
+	extern CollisionInfo CollideCircleWithPlane(CollisionCircle* shape1, CollisionPlane* shape2);
 
-	extern CollisionInfo CollideBoxWithBox(Box* shape1, Box* shape2);
-	extern CollisionInfo CollideBoxWithPlane(Box* shape1, Plane* shape2);
+	extern CollisionInfo CollideBoxWithBox(CollisionBox* shape1, CollisionBox* shape2);
+	extern CollisionInfo CollideBoxWithPlane(CollisionBox* shape1, CollisionPlane* shape2);
 
 	// Collision resolution
 	extern void DepenetrateShapes(CollisionInfo collision);
 
 	// Not called in CollideShapes
-	extern bool DoesPointHitShape(Vec2 point, Shape* shape);
-	extern bool DoesPointHitCircle(Vec2 point, Circle* circle);
-	extern bool DoesPointHitBox(Vec2 point, Box* box);
-	extern bool DoesPointHitPlane(Vec2 point, Plane* plane);
+	extern bool DoesPointHitShape(Vec2 point, CollisionShape* shape);
+	extern bool DoesPointHitCircle(Vec2 point, CollisionCircle* circle);
+	extern bool DoesPointHitBox(Vec2 point, CollisionBox* box);
+	extern bool DoesPointHitPlane(Vec2 point, CollisionPlane* plane);
 };
