@@ -18,19 +18,19 @@ void CollisionShape::ResolveCollision(CollisionInfo collision)
 				float pb2Mass = physBod2->GetMass();
 				float totalMass = pb1Mass + pb2Mass;
 
-				collision.shape1->MovePos(-collision.normal * collision.penetrationDepth * (pb1Mass / totalMass));
-				collision.shape2->MovePos(collision.normal * collision.penetrationDepth * (pb2Mass / totalMass));
+				physBod1->MovePos(-collision.normal * collision.penetrationDepth * (pb1Mass / totalMass));
+				physBod2->MovePos(collision.normal * collision.penetrationDepth * (pb2Mass / totalMass));
 			}
 			else
 			{
-				collision.shape1->MovePos(-collision.normal * collision.penetrationDepth);
+				physBod1->MovePos(-collision.normal * collision.penetrationDepth);
 			}
 		}
 		else
 		{
 			if (physBod2 != nullptr && physBod2->m_isKinematic == false)
 			{
-				collision.shape2->MovePos(collision.normal * collision.penetrationDepth);
+				physBod2->MovePos(collision.normal * collision.penetrationDepth);
 			}
 		}
 	}

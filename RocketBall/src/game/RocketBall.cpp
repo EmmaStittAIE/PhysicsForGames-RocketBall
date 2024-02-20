@@ -53,11 +53,6 @@ void RocketBall::Update(float delta)
 	// Update
 	UpdateChildren(&m_rootNode, delta);
 
-	// DebugDraw
-#if _DEBUG
-	DebugDrawChildren(&m_rootNode);
-#endif
-
 	// Collisions
 	for (int repeats = 0; repeats < 10; repeats++)
 	{
@@ -72,9 +67,15 @@ void RocketBall::Update(float delta)
 
 		for (CollisionInfo& collision : allCollisions)
 		{
-			CollisionFunctions::DepenetrateShapes(collision);
+			//CollisionFunctions::DepenetrateShapes(collision);
+			collision.shape1->ResolveCollision(collision);
 		}
 	}
+
+	// DebugDraw
+#if _DEBUG
+	DebugDrawChildren(&m_rootNode);
+#endif
 }
 
 void RocketBall::OnLeftClick()

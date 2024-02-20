@@ -4,14 +4,16 @@
 
 void TransformNode::DebugDraw(LineRenderer* lines)
 {
+	Vec2 globalPos = GetGlobalPos();
+
 	lines->SetColour(m_debugColour);
 
-	lines->DrawCross(m_localPosition, 0.1);
+	lines->DrawCross(globalPos, 0.1);
 
 	std::stringstream posString;
 
-	posString << "Pos: (" << m_localPosition.x << ", " << m_localPosition.y << ")";
-	lines->RenderString(posString.str(), m_localPosition, 0.4);
+	posString << "Pos: (" << globalPos.x << ", " << globalPos.y << ")";
+	lines->RenderString(posString.str(), globalPos, 0.4);
 }
 
 Vec2 TransformNode::GetGlobalPos()

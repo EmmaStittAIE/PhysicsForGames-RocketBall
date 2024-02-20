@@ -26,11 +26,13 @@ void PhysicsBody::Update(float delta)
 
 void PhysicsBody::DebugDraw(LineRenderer* lines)
 {
+	TransformNode::DebugDraw(lines);
+
 	lines->SetColour(m_debugColour);
 
 	if (m_velocity != Vec2{ 0, 0 })
 	{
-		lines->DrawLineSegment(GetGlobalPos(), GetGlobalPos() + m_velocity);
+		lines->DrawLineSegment(GetGlobalPos(), GetGlobalPos() + m_velocity * 0.5f);
 	}
 }
 
