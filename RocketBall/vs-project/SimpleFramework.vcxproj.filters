@@ -47,19 +47,28 @@
     <ClCompile Include="..\src\Game\GameNode.cpp">
       <Filter>Game\RocketBall\GameNodes</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\game\RigidBody.cpp">
-      <Filter>Game\RocketBall\GameNodes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\game\Circle.cpp">
-      <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\game\CollisionFunctions.cpp">
       <Filter>Game\RocketBall</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Logger.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\game\Box.cpp">
+    <ClCompile Include="..\src\game\CollisionCircle.cpp">
+      <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\game\CollisionShape.cpp">
+      <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\game\OldBox.cpp">
+      <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\game\PhysicsBody.cpp">
+      <Filter>Game\RocketBall\GameNodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\game\TransformNode.cpp">
+      <Filter>Game\RocketBall\GameNodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\game\CollisionBox.cpp">
       <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -136,17 +145,8 @@
     <ClInclude Include="..\src\Game\GameNode.h">
       <Filter>Game\RocketBall\GameNodes</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\game\RigidBody.h">
-      <Filter>Game\RocketBall\GameNodes</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\PhysicsConsts.h">
       <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\game\Shape.h">
-      <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\game\Circle.h">
-      <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\game\CollisionFunctions.h">
       <Filter>Game\RocketBall</Filter>
@@ -157,7 +157,22 @@
     <ClInclude Include="..\src\game\CollisionInfo.h">
       <Filter>Game\RocketBall</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\game\Box.h">
+    <ClInclude Include="..\src\game\CollisionCircle.h">
+      <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\game\CollisionShape.h">
+      <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\game\OldBox.h">
+      <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\game\PhysicsBody.h">
+      <Filter>Game\RocketBall\GameNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\game\TransformNode.h">
+      <Filter>Game\RocketBall\GameNodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\game\CollisionBox.h">
       <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
     </ClInclude>
   </ItemGroup>

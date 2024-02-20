@@ -3,7 +3,7 @@
 #include "CollisionInfo.h"
 #include "CollisionShape.h"
 #include "CollisionCircle.h"
-//#include "CollisionBox.h"
+#include "CollisionBox.h"
 #include "Logger.h"
 
 CollisionInfo CollisionFunctions::CollideShapes(CollisionShape* shape1, CollisionShape* shape2)
@@ -78,7 +78,7 @@ CollisionInfo CollisionFunctions::CollideCircleWithCircle(CollisionCircle* circl
 
 CollisionInfo CollisionFunctions::CollideCircleWithBox(CollisionCircle* circle, CollisionBox* box)
 {
-	/*CollisionInfo collision;
+	CollisionInfo collision;
 
 	Vec2 circlePos = circle->GetGlobalPos();
 	Vec2 boxPos = box->GetGlobalPos();
@@ -99,13 +99,13 @@ CollisionInfo CollisionFunctions::CollideCircleWithBox(CollisionCircle* circle, 
 		collision.normal = glm::normalize(displacement);
 	}
 
-	return collision;*/
+	return collision;
 	return CollisionInfo();
 }
 
 CollisionInfo CollisionFunctions::CollideBoxWithBox(CollisionBox* box1, CollisionBox* box2)
 {
-	/*CollisionInfo collision;
+	CollisionInfo collision;
 
 	Vec2 positionB1 = box1->GetGlobalPos();
 	Vec2 positionB2 = box2->GetGlobalPos();
@@ -164,7 +164,7 @@ CollisionInfo CollisionFunctions::CollideBoxWithBox(CollisionBox* box1, Collisio
 		Logger::LogError("'indexOfSmallest' is out of bounds");
 	}
 
-	return collision;*/
+	return collision;
 	return CollisionInfo();
 }
 

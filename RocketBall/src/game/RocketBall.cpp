@@ -4,7 +4,7 @@
 #include "PhysicsBody.h"
 #include "CollisionShape.h"
 #include "CollisionCircle.h"
-//#include "CollisionBox.h"
+#include "CollisionBox.h"
 #include "CollisionFunctions.h"
 #include "CollisionInfo.h"
 
@@ -13,23 +13,23 @@ RocketBall::RocketBall()
 {
 	// Create GameNodes from the bottom up (this will not be needed when editing tools are added later)
 	CollisionCircle* collisionCircle1 = new CollisionCircle(0, 0, 2, { 1, 0.5f, 0 });
-	PhysicsBody* physicsBody1 = new PhysicsBody(0, 0, 2, true, false);
+	PhysicsBody* physicsBody1 = new PhysicsBody(0, 0, 2, false, false);
 	physicsBody1->AddChild(collisionCircle1);
 	physicsBody1->AddCollisionShape(collisionCircle1);
 
-	//CollisionBox* collisionBox1 = new CollisionBox(5, -3, 2, 1, 1, { 0, 1, 0 });
+	CollisionBox* collisionBox1 = new CollisionBox(5, -1, 1, 1, { 0, 1, 0 });
 
 	CollisionCircle* collisionCircle2 = new CollisionCircle(-3, 4, 1, { 0, 1, 0 });
 
-	CollisionCircle* collisionCircle3 = new CollisionCircle(-5, -12, 5, { 0, 1, 0 });
+	CollisionCircle* collisionCircle3 = new CollisionCircle(-5, -7, 5, { 0, 1, 0 });
 
-	//CollisionBox* collisionBox2 = new CollisionBox(5, 12, 4, 2, 2, { 0, 1, 0 });
+	CollisionBox* collisionBox2 = new CollisionBox(0, -15, 30, 2, { 0, 1, 0 });
 
 	m_rootNode.AddChild(physicsBody1);
-	//m_rootNode.AddChild(collisionBox1);
+	m_rootNode.AddChild(collisionBox1);
 	m_rootNode.AddChild(collisionCircle2);
 	m_rootNode.AddChild(collisionCircle3);
-	//m_rootNode.AddChild(collisionBox2);
+	m_rootNode.AddChild(collisionBox2);
 
 	// Get shapes from m_gameNodes
 	m_collisionShapes = GetShapesFromChildren(&m_rootNode);
