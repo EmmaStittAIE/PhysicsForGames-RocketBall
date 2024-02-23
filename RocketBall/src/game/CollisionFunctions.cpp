@@ -117,6 +117,8 @@ CollisionInfo CollisionFunctions::CollideCircleWithBox(CollisionCircle* circle, 
 
 		collision.penetrationDepth = distanceToEdges[indexOfSmallest] + circle->GetRadius();
 
+		// for some reason, these normals have to be the opposite of the AABB <-> AABB ones?
+		// perhaps because box is in place of shape2 here...
 		switch (indexOfSmallest)
 		{
 		case 0:
