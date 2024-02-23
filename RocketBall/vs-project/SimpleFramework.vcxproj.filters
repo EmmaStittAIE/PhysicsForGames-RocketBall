@@ -59,9 +59,6 @@
     <ClCompile Include="..\src\game\CollisionShape.cpp">
       <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\game\OldBox.cpp">
-      <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\game\PhysicsBody.cpp">
       <Filter>Game\RocketBall\GameNodes</Filter>
     </ClCompile>
@@ -161,9 +158,6 @@
       <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\game\CollisionShape.h">
-      <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\game\OldBox.h">
       <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\game\PhysicsBody.h">

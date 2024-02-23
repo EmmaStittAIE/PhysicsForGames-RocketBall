@@ -158,7 +158,6 @@
     <ClCompile Include="..\src\EntryPoint.cpp" />
     <ClCompile Include="..\src\game\CollisionBox.cpp" />
     <ClCompile Include="..\src\game\CollisionCircle.cpp" />
-    <ClCompile Include="..\src\game\OldBox.cpp" />
     <ClCompile Include="..\src\game\CollisionFunctions.cpp" />
     <ClCompile Include="..\src\game\CollisionShape.cpp" />
     <ClCompile Include="..\src\Game\GameNode.cpp" />
@@ -189,7 +188,6 @@
     <ClInclude Include="..\src\ApplicationHarness.h" />
     <ClInclude Include="..\src\game\CollisionBox.h" />
     <ClInclude Include="..\src\game\CollisionCircle.h" />
-    <ClInclude Include="..\src\game\OldBox.h" />
     <ClInclude Include="..\src\game\CollisionFunctions.h" />
     <ClInclude Include="..\src\game\CollisionInfo.h" />
     <ClInclude Include="..\src\game\CollisionShape.h" />

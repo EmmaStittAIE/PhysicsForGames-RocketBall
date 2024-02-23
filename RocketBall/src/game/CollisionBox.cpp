@@ -5,7 +5,7 @@
 
 void CollisionBox::DebugDraw(LineRenderer* lines)
 {
-	GameNode::DebugDraw(lines);
+	TransformNode::DebugDraw(lines);
 
 	lines->SetColour(m_debugColour);
 

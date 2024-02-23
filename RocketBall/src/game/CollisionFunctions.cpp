@@ -63,15 +63,13 @@ CollisionInfo CollisionFunctions::CollideCircleWithCircle(CollisionCircle* circl
 	// If displacement is <= the combined radius of both shapes, then a collision has occurred
 	float combinedRad = circle1->GetRadius() + circle2->GetRadius();
 	float distance = glm::length(displacement);
-	if (distance <= combinedRad)
-	{
-		// If a collision has occurred, then we want to fill out our CollisionInfo
-		collision.shape1 = circle1;
-		collision.shape2 = circle2;
+	
+	// Fill out collision info regardless - collision resolution later will ignore it if the depth is negative
+	collision.shape1 = circle1;
+	collision.shape2 = circle2;
 
-		collision.penetrationDepth = combinedRad - distance;
-		collision.normal = glm::normalize(displacement);
-	}
+	collision.penetrationDepth = combinedRad - distance;
+	collision.normal = glm::normalize(displacement);
 
 	return collision;
 }
@@ -90,7 +88,58 @@ CollisionInfo CollisionFunctions::CollideCircleWithBox(CollisionCircle* circle, 
 
 	Vec2 displacement = clampedPoint - circlePos;
 	float distance = glm::length(displacement);
-	if (distance <= circle->GetRadius())
+	
+	// Fill out collision info
+	if (distance == 0)
+	{
+		// Find the closest point on the edge of the box
+		float distanceToEdges[4]
+		{
+			std::abs(boxPos.x + halfExtents.x - circlePos.x),		// Right
+			std::abs(boxPos.x - halfExtents.x - circlePos.x),		// Left
+			std::abs(boxPos.y + halfExtents.y - circlePos.y),		// Top
+			std::abs(boxPos.y - halfExtents.y - circlePos.y)		// Bottom
+		};
+
+		// Find the smallest distance (smallest of 4 numbers actually has a second use, who knew)
+		int indexOfSmallest = 0;
+		for (int i = 1; i < 4; i++)
+		{
+			if (distanceToEdges[i] < distanceToEdges[indexOfSmallest])
+			{
+				indexOfSmallest = i;
+			}
+		}
+
+		// Fill out collision info
+		collision.shape1 = circle;
+		collision.shape2 = box;
+
+		collision.penetrationDepth = distanceToEdges[indexOfSmallest] + circle->GetRadius();
+
+		switch (indexOfSmallest)
+		{
+		case 0:
+			collision.normal = { -1, 0 };
+			break;
+
+		case 1:
+			collision.normal = { 1, 0 };
+			break;
+
+		case 2:
+			collision.normal = { 0, -1 };
+			break;
+
+		case 3:
+			collision.normal = { 0, 1 };
+			break;
+
+		default:
+			Logger::LogError("'indexOfSmallest' is out of bounds");
+		}
+		}
+	else
 	{
 		collision.shape1 = circle;
 		collision.shape2 = box;
@@ -100,7 +149,6 @@ CollisionInfo CollisionFunctions::CollideCircleWithBox(CollisionCircle* circle, 
 	}
 
 	return collision;
-	return CollisionInfo();
 }
 
 CollisionInfo CollisionFunctions::CollideBoxWithBox(CollisionBox* box1, CollisionBox* box2)
@@ -118,16 +166,15 @@ CollisionInfo CollisionFunctions::CollideBoxWithBox(CollisionBox* box1, Collisio
 	Vec2 minB2 = positionB2 - halfExtentsB2;
 	Vec2 maxB2 = positionB2 + halfExtentsB2;
 
-	// Overlaps between R1/2 (right of box1/box2) and L2/1 (left of box2/box1)
-	float overlapR1L2 = maxB1.x - minB2.x;
-	float overlapR2L1 = maxB2.x - minB1.x;
-	// Overlap between T1/2 (top of box1/box2) and B2/1 (bottom of box2/box1)
-	float overlapT1B2 = maxB1.y - minB2.y;
-	float overlapT2B1 = maxB2.y - minB1.y;
+	float overlaps[4]
+	{
+		maxB1.x - minB2.x,		// Right1 vs Left2
+		maxB2.x - minB1.x,		// Right2 vs Left1
+		maxB1.y - minB2.y,		// Top1 vs Bottom2
+		maxB2.y - minB1.y		// Top2 vs Bottom1
+	};
 
 	// Find the smallest overlap
-	float overlaps[4] = { overlapR1L2, overlapR2L1, overlapT1B2, overlapT2B1 };
-	
 	int indexOfSmallest = 0;
 	for (int i = 1; i < 4; i++)
 	{
@@ -137,6 +184,7 @@ CollisionInfo CollisionFunctions::CollideBoxWithBox(CollisionBox* box1, Collisio
 		}
 	}
 
+	// Fill out collision info
 	collision.shape1 = box1;
 	collision.shape2 = box2;
 
@@ -210,11 +258,11 @@ bool CollisionFunctions::DoesPointHitCircle(Vec2 point, CollisionCircle* circle)
 
 bool CollisionFunctions::DoesPointHitBox(Vec2 point, CollisionBox* box)
 {
-	/*Vec2 boxPos = box->GetGlobalPos();
+	Vec2 boxPos = box->GetGlobalPos();
 	Vec2 halfExtents = { box->GetHalfWidth(), box->GetHalfHeight() };
 
 	Vec2 clampedPoint = glm::clamp(point, boxPos - halfExtents, boxPos + halfExtents);
 
-	return clampedPoint == point;*/
+	return clampedPoint == point;
 	return false;
 }
