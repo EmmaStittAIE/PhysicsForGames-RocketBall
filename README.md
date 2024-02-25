@@ -2,19 +2,30 @@
 RocketBall is a fairly simple physics engine, built on top of the rendering framework `LineRenderer`.
 
 ## Features
+Physics:
  - GameNodes (the GameObjects of RocketBall)
-  
-### Planned
- - Fixed and Variable timesteps
+ - PhysicsBodies
+ - CollisionShapes
+	- Circle
+	- Box
  - Collision detection
  - Collision resolution
+ 
+ Non-Physics:
+ - Render culling
+  
+### Planned
+Physics:
+- CollisionShapes
+	- Plane
+	- Mesh
  - Rotations
  - Rocket
- - Convex 2D meshes
  - Fixed & Spring Joints
- - Soft-bodies
  - Ball
- - Concave 2D meshes
+
+ Non-Physics:
+ - "Sprites" (array of points drawn as lines, kind of like a mesh)
 
 ## Libraries
  - [GLFW 3.3](https://github.com/glfw/glfw/releases)
