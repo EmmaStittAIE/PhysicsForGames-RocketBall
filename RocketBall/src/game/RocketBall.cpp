@@ -5,37 +5,45 @@
 #include "CollisionShape.h"
 #include "CollisionCircle.h"
 #include "CollisionBox.h"
+#include "CollisionPlane.h"
 #include "CollisionFunctions.h"
 #include "CollisionInfo.h"
 
 RocketBall::RocketBall()
-	: m_rootNode(0, 0)
+	: m_rootNode()
 {
 	// Create GameNodes from the bottom up (this will not be needed when editing tools are added later)
+	// TODO: fix bug with PhysicsBodys not behaving correctly when multiple CollisionShapes are present
 	CollisionCircle* collisionCircle1 = new CollisionCircle(0, 0, 2, { 1, 0.5f, 0 });
 	PhysicsBody* physicsBody1 = new PhysicsBody(0, 0, 2, false, false);
 	physicsBody1->AddChild(collisionCircle1);
 	physicsBody1->AddCollisionShape(collisionCircle1);
 
-	CollisionBox* collisionBox1 = new CollisionBox(5, -1, 1, 1, { 0, 1, 0 });
+	CollisionBox* collisionBox1 = new CollisionBox(5, -1, 1, 1, { 1, 1, 1 });
+	PhysicsBody* physicsBody2 = new PhysicsBody(5, -1, 2, false, false);
+	physicsBody2->AddChild(collisionBox1);
+	physicsBody2->AddCollisionShape(collisionBox1);
 
-	CollisionCircle* collisionCircle2 = new CollisionCircle(-3, 4, 1, { 0, 1, 0 });
+	CollisionCircle* collisionCircle2 = new CollisionCircle(-3, 4, 1, { 1, 1, 1 });
 
-	CollisionCircle* collisionCircle3 = new CollisionCircle(-5, -7, 5, { 0, 1, 0 });
+	CollisionCircle* collisionCircle3 = new CollisionCircle(-5, -7, 5, { 1, 1, 1 });
 
-	CollisionBox* collisionBox2 = new CollisionBox(0, -15, 30, 2, { 0, 1, 0 });
+	CollisionBox* collisionBox2 = new CollisionBox(0, -11, 10, 2, { 1, 1, 1 });
+
+	CollisionPlane* collisionPlane1 = new CollisionPlane(0, -15, 0, { 1, 1, 1 });
 
 	m_rootNode.AddChild(physicsBody1);
-	m_rootNode.AddChild(collisionBox1);
+	m_rootNode.AddChild(physicsBody2);
 	m_rootNode.AddChild(collisionCircle2);
 	m_rootNode.AddChild(collisionCircle3);
 	m_rootNode.AddChild(collisionBox2);
+	m_rootNode.AddChild(collisionPlane1);
 
 	// Get shapes from m_gameNodes
 	m_collisionShapes = GetShapesFromChildren(&m_rootNode);
 }
 
-void RocketBall::Update(Vec2 cameraPos, Vec2 cameraDimensions, float delta)
+void RocketBall::Update(Vec2 cameraPos, Vec2 cameraHalfExtents, float delta)
 {
 	// Input
 	if (m_bodyOnMouse != nullptr)
@@ -61,20 +69,19 @@ void RocketBall::Update(Vec2 cameraPos, Vec2 cameraDimensions, float delta)
 		{
 			for (int j = i + 1; j < m_collisionShapes.size(); j++)
 			{
-				allCollisions.push_back(CollisionFunctions::CollideShapes(m_collisionShapes[i], m_collisionShapes[j]));
+				allCollisions.push_back(m_collisionShapes[i]->CollideWithShape(m_collisionShapes[j]));
 			}
 		}
 
 		for (CollisionInfo& collision : allCollisions)
 		{
-			//CollisionFunctions::DepenetrateShapes(collision);
 			collision.shape1->ResolveCollision(collision);
 		}
 	}
 
 	// DebugDraw
 #if _DEBUG
-	DebugDrawChildren(&m_rootNode, cameraPos, cameraDimensions);
+	DebugDrawChildren(&m_rootNode, cameraPos, cameraHalfExtents);
 #endif
 }
 
@@ -136,16 +143,16 @@ void RocketBall::UpdateChildren(GameNode* root, float delta)
 	root->Update(delta);
 }
 
-void RocketBall::DebugDrawChildren(GameNode* root, Vec2 cameraPos, Vec2 cameraDimensions)
+void RocketBall::DebugDrawChildren(GameNode* root, Vec2 cameraPos, Vec2 cameraHalfExtents)
 {
 	std::vector<GameNode*> children = *root->GetChildren();
 
 	for (int i = 0; i < children.size(); i++)
 	{
-		DebugDrawChildren(children[i], cameraPos, cameraDimensions);
+		DebugDrawChildren(children[i], cameraPos, cameraHalfExtents);
 	}
 
-	root->DebugDraw(lines, cameraPos, cameraDimensions);
+	root->DebugDraw(lines, cameraPos, cameraHalfExtents);
 }
 
 std::vector<CollisionShape*> RocketBall::GetShapesFromChildren(GameNode* root)

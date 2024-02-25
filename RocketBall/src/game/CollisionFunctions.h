@@ -11,8 +11,6 @@ class CollisionPlane;
 namespace CollisionFunctions
 {
 	// Collision detection
-	extern CollisionInfo CollideShapes(CollisionShape* shape1, CollisionShape* shape2);
-
 	extern CollisionInfo CollideCircleWithCircle(CollisionCircle* shape1, CollisionCircle* shape2);
 	extern CollisionInfo CollideCircleWithBox(CollisionCircle* shape1, CollisionBox* shape2);
 	extern CollisionInfo CollideCircleWithPlane(CollisionCircle* shape1, CollisionPlane* shape2);

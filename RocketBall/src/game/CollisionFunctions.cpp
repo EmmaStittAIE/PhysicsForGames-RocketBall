@@ -6,54 +6,6 @@
 #include "CollisionBox.h"
 #include "Logger.h"
 
-CollisionInfo CollisionFunctions::CollideShapes(CollisionShape* shape1, CollisionShape* shape2)
-{
-	switch (shape1->m_shapeType)
-	{
-	case ShapeType::circle:
-		switch (shape2->m_shapeType)
-		{
-		case ShapeType::circle:
-			return CollideCircleWithCircle((CollisionCircle*)shape1, (CollisionCircle*)shape2);
-
-		case ShapeType::box:
-			return CollideCircleWithBox((CollisionCircle*)shape1, (CollisionBox*)shape2);
-
-		case ShapeType::plane:
-			//return CollideCircleWithPlane((Circle*)circle1, (Plane*)circle2);
-			Logger::LogWarning("Collison between 'circle' and 'plane' is not implemented");
-			return CollisionInfo();
-
-		default:
-			Logger::LogError("Shape 'circle2' does not contain a valid shape");
-			return CollisionInfo();
-		}
-
-	case ShapeType::box:
-		switch (shape2->m_shapeType)
-		{
-		case ShapeType::circle:
-			return CollideCircleWithBox((CollisionCircle*)shape2, (CollisionBox*)shape1);
-
-		case ShapeType::box:
-			return CollideBoxWithBox((CollisionBox*)shape1, (CollisionBox*)shape2);
-
-		case ShapeType::plane:
-			//return CollideBoxWithPlane((Box*)circle1, (Plane*)circle2);
-			Logger::LogWarning("Collison between 'circle' and 'plane' is not implemented");
-			return CollisionInfo();
-
-		default:
-			Logger::LogError("Shape 'circle2' does not contain a valid shape");
-			return CollisionInfo();
-		}
-
-	default:
-		Logger::LogError("Shape 'circle1' does not contain a valid shape");
-		return CollisionInfo();
-	}
-}
-
 CollisionInfo CollisionFunctions::CollideCircleWithCircle(CollisionCircle* circle1, CollisionCircle* circle2)
 {
 	CollisionInfo collision;
@@ -153,6 +105,12 @@ CollisionInfo CollisionFunctions::CollideCircleWithBox(CollisionCircle* circle, 
 	return collision;
 }
 
+CollisionInfo CollisionFunctions::CollideCircleWithPlane(CollisionCircle* shape1, CollisionPlane* shape2)
+{
+
+	return CollisionInfo();
+}
+
 CollisionInfo CollisionFunctions::CollideBoxWithBox(CollisionBox* box1, CollisionBox* box2)
 {
 	CollisionInfo collision;
@@ -218,6 +176,11 @@ CollisionInfo CollisionFunctions::CollideBoxWithBox(CollisionBox* box1, Collisio
 	return CollisionInfo();
 }
 
+CollisionInfo CollisionFunctions::CollideBoxWithPlane(CollisionBox* shape1, CollisionPlane* shape2)
+{
+	return CollisionInfo();
+}
+
 void CollisionFunctions::DepenetrateShapes(CollisionInfo collision)
 {
 	if (collision.penetrationDepth >= 0)
@@ -266,5 +229,4 @@ bool CollisionFunctions::DoesPointHitBox(Vec2 point, CollisionBox* box)
 	Vec2 clampedPoint = glm::clamp(point, boxPos - halfExtents, boxPos + halfExtents);
 
 	return clampedPoint == point;
-	return false;
 }

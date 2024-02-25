@@ -22,7 +22,7 @@ private:
 public:
 	RocketBall();
 
-	void Update(Vec2 cameraPos, Vec2 cameraDimensions, float delta) override;
+	void Update(Vec2 cameraPos, Vec2 cameraHalfExtents, float delta) override;
 
 	void OnLeftClick() override;
 	void OnLeftRelease() override;
@@ -30,6 +30,6 @@ public:
 	void OnRightRelease() override;
 
 	void UpdateChildren(GameNode* root, float delta);
-	void DebugDrawChildren(GameNode* root, Vec2 cameraPos, Vec2 cameraDimensions);
+	void DebugDrawChildren(GameNode* root, Vec2 cameraPos, Vec2 cameraHalfExtents);
 	std::vector<CollisionShape*> GetShapesFromChildren(GameNode* root);
 };

@@ -68,6 +68,9 @@
     <ClCompile Include="..\src\game\CollisionBox.cpp">
       <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\game\CollisionPlane.cpp">
+      <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\imgui\dirent.h">
@@ -167,6 +170,9 @@
       <Filter>Game\RocketBall\GameNodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\game\CollisionBox.h">
+      <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\game\CollisionPlane.h">
       <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
     </ClInclude>
   </ItemGroup>

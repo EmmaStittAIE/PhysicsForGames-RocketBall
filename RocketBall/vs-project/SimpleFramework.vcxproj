@@ -159,6 +159,7 @@
     <ClCompile Include="..\src\game\CollisionBox.cpp" />
     <ClCompile Include="..\src\game\CollisionCircle.cpp" />
     <ClCompile Include="..\src\game\CollisionFunctions.cpp" />
+    <ClCompile Include="..\src\game\CollisionPlane.cpp" />
     <ClCompile Include="..\src\game\CollisionShape.cpp" />
     <ClCompile Include="..\src\Game\GameNode.cpp" />
     <ClCompile Include="..\src\game\PhysicsBody.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="..\src\game\CollisionCircle.h" />
     <ClInclude Include="..\src\game\CollisionFunctions.h" />
     <ClInclude Include="..\src\game\CollisionInfo.h" />
+    <ClInclude Include="..\src\game\CollisionPlane.h" />
     <ClInclude Include="..\src\game\CollisionShape.h" />
     <ClInclude Include="..\src\Game\GameNode.h" />
     <ClInclude Include="..\src\game\PhysicsBody.h" />
