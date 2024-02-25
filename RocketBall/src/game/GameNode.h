@@ -18,14 +18,12 @@ public:
 
 	Vec3 m_debugColour;
 
-	GameNode(float xPos, float yPos, Vec3 debugColour = { 1, 1, 1 })
-		: m_debugColour(debugColour), m_parent(nullptr) {};
-	GameNode(Vec2 pos, Vec3 debugColour = { 1, 1, 1 })
+	GameNode(Vec3 debugColour = { 1, 1, 1 })
 		: m_debugColour(debugColour), m_parent(nullptr) {};
 
 	// Update with a fixed timestep
 	virtual void Update(float delta) {};
-	virtual void DebugDraw(LineRenderer* lines, Vec2 cameraPos, Vec2 cameraDimensions) {};
+	virtual void DebugDraw(LineRenderer* lines, Vec2 cameraPos, Vec2 cameraHalfExtents) {};
 
 	GameNode* GetParent();
 

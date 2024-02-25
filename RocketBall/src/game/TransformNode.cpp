@@ -2,11 +2,11 @@
 
 #include "TransformNode.h"
 
-void TransformNode::DebugDraw(LineRenderer* lines, Vec2 cameraPos, Vec2 cameraDimensions)
+void TransformNode::DebugDraw(LineRenderer* lines, Vec2 cameraPos, Vec2 cameraHalfExtents)
 {
 	Vec2 globalPos = GetGlobalPos();
 
-	Vec2 clampedPoint = glm::clamp(globalPos, cameraPos - cameraDimensions, cameraPos + cameraDimensions);
+	Vec2 clampedPoint = glm::clamp(globalPos, cameraPos - cameraHalfExtents, cameraPos + cameraHalfExtents);
 
 	// If we are within the bounds of the camera
 	// Might need some touching up later, as the text disappears instantly despite still being shown
@@ -25,26 +25,47 @@ void TransformNode::DebugDraw(LineRenderer* lines, Vec2 cameraPos, Vec2 cameraDi
 
 Vec2 TransformNode::GetGlobalPos()
 {
-	TransformNode* parentTransform = dynamic_cast<TransformNode*>(m_parent);
-	if (parentTransform != nullptr)
+	// Loop through all parents, accumulating their local positions, until we reach the top, then break out
+	// Because a parent might not be a TransformNode, we don't want to stop checking when we hit it
+	// and ignore any potential TransformNodes above it
+	Vec2 globalPos = m_localPosition;
+
+	GameNode* currentParent = m_parent;
+	while (1)
 	{
-		return m_localPosition + parentTransform->GetGlobalPos();
+		if (currentParent == nullptr) { break; }
+
+		TransformNode* parentTransform = dynamic_cast<TransformNode*>(currentParent);
+		if (parentTransform != nullptr)
+		{
+			globalPos += parentTransform->GetLocalPos();
+		}
+
+		currentParent = currentParent->GetParent();
 	}
 
-	return m_localPosition;
+	return globalPos;
 }
 
 void TransformNode::SetGlobalPos(Vec2 pos)
 {
-	Vec2 parentPos = { 0,0 };
+	Vec2 parentGlobalPos(0, 0);
 
-	TransformNode* parentTransform = dynamic_cast<TransformNode*>(m_parent);
-	if (parentTransform != nullptr)
+	GameNode* currentParent = m_parent;
+	while (1)
 	{
-		Vec2 parentPos = parentTransform->GetGlobalPos();
+		if (currentParent == nullptr) { break; }
+
+		TransformNode* parentTransform = dynamic_cast<TransformNode*>(currentParent);
+		if (parentTransform != nullptr)
+		{
+			parentGlobalPos += parentTransform->GetLocalPos();
+		}
+
+		currentParent = currentParent->GetParent();
 	}
 
-	m_localPosition = pos - parentPos;
+	m_localPosition = pos - parentGlobalPos;
 }
 
 Vec2 TransformNode::GetLocalPos()
