@@ -3,12 +3,20 @@
 #include "CollisionInfo.h"
 #include "Logger.h"
 
-void CollisionCircle::DebugDraw(LineRenderer* lines)
+void CollisionCircle::DebugDraw(LineRenderer* lines, Vec2 cameraPos, Vec2 cameraDimensions)
 {
-	TransformNode::DebugDraw(lines);
+	TransformNode::DebugDraw(lines, cameraPos, cameraDimensions);
 
-	lines->SetColour(m_debugColour);
-	lines->DrawCircle(GetGlobalPos(), m_radius);
+	Vec2 globalPos = GetGlobalPos();
+
+	// Simplified box collision with the camera "box"
+	Vec2 clampedPoint = glm::clamp(globalPos, cameraPos - cameraDimensions, cameraPos + cameraDimensions);
+
+	if (CollisionFunctions::DoesPointHitCircle(clampedPoint, this))
+	{
+		lines->SetColour(m_debugColour);
+		lines->DrawCircle(globalPos, m_radius);
+	}
 }
 
 CollisionInfo CollisionCircle::CollideWithShape(CollisionShape* other)

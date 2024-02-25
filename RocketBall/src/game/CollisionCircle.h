@@ -13,7 +13,7 @@ public:
 	CollisionCircle(Vec2 position, float radius, Vec3 debugColour = { 1, 1, 1 })
 		: CollisionShape(position, ShapeType::circle, debugColour), m_radius(radius) {};
 
-	void DebugDraw(LineRenderer* lines) override;
+	void DebugDraw(LineRenderer* lines, Vec2 cameraPos, Vec2 cameraDimensions) override;
 
 	CollisionInfo CollideWithShape(CollisionShape* other) override;
 

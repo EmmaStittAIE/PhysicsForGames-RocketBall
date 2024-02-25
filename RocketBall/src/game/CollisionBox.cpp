@@ -3,25 +3,32 @@
 #include "CollisionInfo.h"
 #include "Logger.h"
 
-void CollisionBox::DebugDraw(LineRenderer* lines)
+void CollisionBox::DebugDraw(LineRenderer* lines, Vec2 cameraPos, Vec2 cameraDimensions)
 {
-	TransformNode::DebugDraw(lines);
-
-	lines->SetColour(m_debugColour);
-
-	Vec2 localCorners[4];
-
-	localCorners[0] = { -m_halfWidth, m_halfHeight };
-	localCorners[1] = { m_halfWidth, m_halfHeight };
-	localCorners[2] = { m_halfWidth, -m_halfHeight };
-	localCorners[3] = { -m_halfWidth, -m_halfHeight };
+	TransformNode::DebugDraw(lines, cameraPos, cameraDimensions);
 
 	Vec2 globalPos = GetGlobalPos();
-	for (int i = 0; i < std::size(localCorners); i++)
+
+	// Simplified box collision with the camera "box"
+	Vec2 clampedPoint = glm::clamp(globalPos, cameraPos - cameraDimensions, cameraPos + cameraDimensions);
+
+	if (CollisionFunctions::DoesPointHitBox(clampedPoint, this))
 	{
-		lines->AddPointToLine(localCorners[i] + globalPos);
+		lines->SetColour(m_debugColour);
+
+		Vec2 localCorners[4];
+
+		localCorners[0] = { -m_halfWidth, m_halfHeight };
+		localCorners[1] = { m_halfWidth, m_halfHeight };
+		localCorners[2] = { m_halfWidth, -m_halfHeight };
+		localCorners[3] = { -m_halfWidth, -m_halfHeight };
+
+		for (int i = 0; i < std::size(localCorners); i++)
+		{
+			lines->AddPointToLine(localCorners[i] + globalPos);
+		}
+		lines->FinishLineLoop();
 	}
-	lines->FinishLineLoop();
 }
 
 CollisionInfo CollisionBox::CollideWithShape(CollisionShape* other)

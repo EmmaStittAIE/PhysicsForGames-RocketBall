@@ -27,7 +27,7 @@ ApplicationHarness::ApplicationHarness(Application* appInit) : app(appInit)
 
 
 	//Can choose resolution here.
-	window = glfwCreateWindow(1280, 720, "Physics Testbed", nullptr, nullptr);
+	window = glfwCreateWindow(1280, 720, "RocketBall", nullptr, nullptr);
 
 	//This is the somewhat hacky oldschool way of making callbacks work without everything having to be global. Look
 	//at the way the function callbacks work to get an idea of what's going on.
@@ -165,7 +165,9 @@ void ApplicationHarness::Update(float delta)
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
-	app->Update(delta);
+	// basically just copied from GetCameraTransform to avoid having to figure out what is and isn't already in world space
+	// hope that's alright
+	app->Update(cameraCentre, Vec2(aspectRatio * cameraHeight / 2.0f, cameraHeight / 2.0f), delta);
 
 	lines.Compile();
 

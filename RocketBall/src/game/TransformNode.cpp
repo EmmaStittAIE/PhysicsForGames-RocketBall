@@ -2,18 +2,25 @@
 
 #include "TransformNode.h"
 
-void TransformNode::DebugDraw(LineRenderer* lines)
+void TransformNode::DebugDraw(LineRenderer* lines, Vec2 cameraPos, Vec2 cameraDimensions)
 {
 	Vec2 globalPos = GetGlobalPos();
 
-	lines->SetColour(m_debugColour);
+	Vec2 clampedPoint = glm::clamp(globalPos, cameraPos - cameraDimensions, cameraPos + cameraDimensions);
 
-	lines->DrawCross(globalPos, 0.1);
+	// If we are within the bounds of the camera
+	// Might need some touching up later, as the text disappears instantly despite still being shown
+	if (clampedPoint == globalPos)
+	{
+		lines->SetColour(m_debugColour);
 
-	std::stringstream posString;
+		lines->DrawCross(globalPos, 0.1);
 
-	posString << "Pos: (" << globalPos.x << ", " << globalPos.y << ")";
-	lines->RenderString(posString.str(), globalPos, 0.4);
+		std::stringstream posString;
+
+		posString << "Pos: (" << globalPos.x << ", " << globalPos.y << ")";
+		lines->RenderString(posString.str(), globalPos, 0.4);
+	}
 }
 
 Vec2 TransformNode::GetGlobalPos()

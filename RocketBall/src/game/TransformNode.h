@@ -13,7 +13,7 @@ public:
 	TransformNode(Vec2 pos, Vec3 debugColour = { 1, 1, 1 })
 		: GameNode(debugColour), m_localPosition(pos) {};
 
-	void DebugDraw(LineRenderer* lines) override;
+	void DebugDraw(LineRenderer* lines, Vec2 cameraPos, Vec2 cameraDimensions) override;
 
 	// Position get/setters
 	Vec2 GetGlobalPos();

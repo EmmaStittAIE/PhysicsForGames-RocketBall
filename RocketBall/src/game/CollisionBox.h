@@ -14,7 +14,7 @@ public:
 	CollisionBox(Vec2 position, float width, float height, Vec3 debugColour = { 1, 1, 1 })
 		: CollisionShape(position, ShapeType::box, debugColour), m_halfWidth(width / 2), m_halfHeight(height / 2) {};
 
-	void DebugDraw(LineRenderer* lines) override;
+	void DebugDraw(LineRenderer* lines, Vec2 cameraPos, Vec2 cameraDimensions) override;
 
 	CollisionInfo CollideWithShape(CollisionShape* other) override;
 

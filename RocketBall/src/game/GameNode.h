@@ -25,7 +25,7 @@ public:
 
 	// Update with a fixed timestep
 	virtual void Update(float delta) {};
-	virtual void DebugDraw(LineRenderer* lines) {};
+	virtual void DebugDraw(LineRenderer* lines, Vec2 cameraPos, Vec2 cameraDimensions) {};
 
 	GameNode* GetParent();
 

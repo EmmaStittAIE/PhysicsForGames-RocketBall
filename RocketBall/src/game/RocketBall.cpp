@@ -35,7 +35,7 @@ RocketBall::RocketBall()
 	m_collisionShapes = GetShapesFromChildren(&m_rootNode);
 }
 
-void RocketBall::Update(float delta)
+void RocketBall::Update(Vec2 cameraPos, Vec2 cameraDimensions, float delta)
 {
 	// Input
 	if (m_bodyOnMouse != nullptr)
@@ -74,7 +74,7 @@ void RocketBall::Update(float delta)
 
 	// DebugDraw
 #if _DEBUG
-	DebugDrawChildren(&m_rootNode);
+	DebugDrawChildren(&m_rootNode, cameraPos, cameraDimensions);
 #endif
 }
 
@@ -136,16 +136,16 @@ void RocketBall::UpdateChildren(GameNode* root, float delta)
 	root->Update(delta);
 }
 
-void RocketBall::DebugDrawChildren(GameNode* root)
+void RocketBall::DebugDrawChildren(GameNode* root, Vec2 cameraPos, Vec2 cameraDimensions)
 {
 	std::vector<GameNode*> children = *root->GetChildren();
 
 	for (int i = 0; i < children.size(); i++)
 	{
-		DebugDrawChildren(children[i]);
+		DebugDrawChildren(children[i], cameraPos, cameraDimensions);
 	}
 
-	root->DebugDraw(lines);
+	root->DebugDraw(lines, cameraPos, cameraDimensions);
 }
 
 std::vector<CollisionShape*> RocketBall::GetShapesFromChildren(GameNode* root)
