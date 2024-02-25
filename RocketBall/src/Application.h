@@ -6,7 +6,7 @@ class Application
 {
 public:
 	// janky update to pass along the window's dimensions for drawing
-	virtual void Update(Vec2 cameraPos, Vec2 cameraDimensions, float delta) = 0;
+	virtual void Update(Vec2 cameraPos, Vec2 cameraHalfExtents, float delta) = 0;
 
 	bool leftMouseDown;
 	bool rightMouseDown;

@@ -3,14 +3,14 @@
 #include "CollisionInfo.h"
 #include "Logger.h"
 
-void CollisionCircle::DebugDraw(LineRenderer* lines, Vec2 cameraPos, Vec2 cameraDimensions)
+void CollisionCircle::DebugDraw(LineRenderer* lines, Vec2 cameraPos, Vec2 cameraHalfExtents)
 {
-	TransformNode::DebugDraw(lines, cameraPos, cameraDimensions);
+	TransformNode::DebugDraw(lines, cameraPos, cameraHalfExtents);
 
 	Vec2 globalPos = GetGlobalPos();
 
 	// Simplified box collision with the camera "box"
-	Vec2 clampedPoint = glm::clamp(globalPos, cameraPos - cameraDimensions, cameraPos + cameraDimensions);
+	Vec2 clampedPoint = glm::clamp(globalPos, cameraPos - cameraHalfExtents, cameraPos + cameraHalfExtents);
 
 	if (CollisionFunctions::DoesPointHitCircle(clampedPoint, this))
 	{
@@ -30,15 +30,14 @@ CollisionInfo CollisionCircle::CollideWithShape(CollisionShape* other)
 		return CollisionFunctions::CollideCircleWithBox(this, (CollisionBox*)other);
 
 	case ShapeType::plane:
-		//return CollideCircleWithPlane((Circle*)circle1, (Plane*)circle2);
-		Logger::LogWarning("Collison between 'circle' and 'plane' is not implemented");
+		//return CollideCircleWithPlane(this, (Plane*)other);
+		//Logger::LogWarning("Collison between 'circle' and 'plane' is not implemented");
 		return CollisionInfo();
 
 	default:
-		Logger::LogError("Shape 'circle2' does not contain a valid shape");
+		//Logger::LogError("Shape 'circle2' does not contain a valid shape");
 		return CollisionInfo();
 	}
-	return CollisionInfo();
 }
 
 float CollisionCircle::GetRadius()

@@ -27,7 +27,7 @@ public:
 		: TransformNode(position, debugColour), m_mass(mass), m_isKinematic(kinematic), m_useGrav(useGrav), m_velocity(0, 0), m_acceleration(0, 0), m_netForce(0, 0) {}
 
 	void Update(float delta) override;
-	void DebugDraw(LineRenderer* lines, Vec2 cameraPos, Vec2 cameraDimensions) override;
+	void DebugDraw(LineRenderer* lines, Vec2 cameraPos, Vec2 cameraHalfExtents) override;
 
 	void AddCollisionShape(CollisionShape* shape);
 	void RemoveCollisionShape(CollisionShape* shape);

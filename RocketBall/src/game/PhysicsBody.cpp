@@ -24,9 +24,9 @@ void PhysicsBody::Update(float delta)
 	}
 }
 
-void PhysicsBody::DebugDraw(LineRenderer* lines, Vec2 cameraPos, Vec2 cameraDimensions)
+void PhysicsBody::DebugDraw(LineRenderer* lines, Vec2 cameraPos, Vec2 cameraHalfExtents)
 {
-	TransformNode::DebugDraw(lines, cameraPos, cameraDimensions);
+	TransformNode::DebugDraw(lines, cameraPos, cameraHalfExtents);
 
 	lines->SetColour(m_debugColour);
 
