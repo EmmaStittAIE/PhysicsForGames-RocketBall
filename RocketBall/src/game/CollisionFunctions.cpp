@@ -191,6 +191,7 @@ CollisionInfo CollisionFunctions::CollideBoxWithPlane(CollisionBox* box, Collisi
 	return CollisionInfo();
 }
 
+// TODO: fix reversed normal for plane, despite plane's normal value  being the correct way round
 void CollisionFunctions::ResolveCollision(CollisionInfo collision)
 {
 	if (collision.penetrationDepth >= 0)
