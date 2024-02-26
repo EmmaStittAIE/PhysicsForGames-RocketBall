@@ -30,9 +30,7 @@ CollisionInfo CollisionCircle::CollideWithShape(CollisionShape* other)
 		return CollisionFunctions::CollideCircleWithBox(this, (CollisionBox*)other);
 
 	case ShapeType::plane:
-		//return CollideCircleWithPlane(this, (Plane*)other);
-		//Logger::LogWarning("Collison between 'circle' and 'plane' is not implemented");
-		return CollisionInfo();
+		return CollisionFunctions::CollideCircleWithPlane(this, (CollisionPlane*)other);
 
 	default:
 		//Logger::LogError("Shape 'circle2' does not contain a valid shape");

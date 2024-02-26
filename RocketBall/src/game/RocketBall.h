@@ -5,16 +5,16 @@
 #include "Application.h"
 #include "GameNode.h"
 
-class CollisionShape;
+class CollisionBody;
 class PhysicsBody;
 
 class RocketBall : public Application
 {
 private:
 	GameNode m_rootNode;
-	std::vector<CollisionShape*> m_collisionShapes;
+	std::vector<CollisionBody*> m_collisionBodies;
 
-	PhysicsBody* m_bodyOnMouse = nullptr;
+	CollisionBody* m_bodyOnMouse = nullptr;
 	PhysicsBody* m_bodyToFling = nullptr;
 
 	float m_flingMultiplier = 5;
@@ -31,5 +31,5 @@ public:
 
 	void UpdateChildren(GameNode* root, float delta);
 	void DebugDrawChildren(GameNode* root, Vec2 cameraPos, Vec2 cameraHalfExtents);
-	std::vector<CollisionShape*> GetShapesFromChildren(GameNode* root);
+	std::vector<CollisionBody*> GetBodiesFromChildren(GameNode* root);
 };

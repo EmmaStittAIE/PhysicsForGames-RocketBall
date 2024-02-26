@@ -3,6 +3,7 @@
 #include "Maths.h"
 
 struct CollisionInfo;
+class CollisionBody;
 class CollisionShape;
 class CollisionCircle;
 class CollisionBox;
@@ -11,17 +12,18 @@ class CollisionPlane;
 namespace CollisionFunctions
 {
 	// Collision detection
-	extern CollisionInfo CollideCircleWithCircle(CollisionCircle* shape1, CollisionCircle* shape2);
-	extern CollisionInfo CollideCircleWithBox(CollisionCircle* shape1, CollisionBox* shape2);
-	extern CollisionInfo CollideCircleWithPlane(CollisionCircle* shape1, CollisionPlane* shape2);
+	extern CollisionInfo CollideCircleWithCircle(CollisionCircle* circle1, CollisionCircle* circle2);
+	extern CollisionInfo CollideCircleWithBox(CollisionCircle* circle, CollisionBox* box);
+	extern CollisionInfo CollideCircleWithPlane(CollisionCircle* circle, CollisionPlane* plane);
 
-	extern CollisionInfo CollideBoxWithBox(CollisionBox* shape1, CollisionBox* shape2);
-	extern CollisionInfo CollideBoxWithPlane(CollisionBox* shape1, CollisionPlane* shape2);
+	extern CollisionInfo CollideBoxWithBox(CollisionBox* box1, CollisionBox* box2);
+	extern CollisionInfo CollideBoxWithPlane(CollisionBox* box, CollisionPlane* plane);
 
 	// Collision resolution
-	extern void DepenetrateShapes(CollisionInfo collision);
+	extern void ResolveCollision(CollisionInfo collision);
 
 	// Not called in CollideShapes
+	extern bool DoesPointHitBody(Vec2 point, CollisionBody* body);
 	extern bool DoesPointHitShape(Vec2 point, CollisionShape* shape);
 	extern bool DoesPointHitCircle(Vec2 point, CollisionCircle* circle);
 	extern bool DoesPointHitBox(Vec2 point, CollisionBox* box);

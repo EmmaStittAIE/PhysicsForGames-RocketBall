@@ -187,6 +187,7 @@
     <ClInclude Include="..\lib\imgui\imstb_truetype.h" />
     <ClInclude Include="..\src\Application.h" />
     <ClInclude Include="..\src\ApplicationHarness.h" />
+    <ClInclude Include="..\src\game\CollisionBody.h" />
     <ClInclude Include="..\src\game\CollisionBox.h" />
     <ClInclude Include="..\src\game\CollisionCircle.h" />
     <ClInclude Include="..\src\game\CollisionFunctions.h" />

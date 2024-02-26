@@ -9,7 +9,7 @@ class GameNode
 {
 protected:
 	// TODO: implement scene tree
-	GameNode* m_parent;
+	GameNode* m_parent = nullptr;
 
 	std::vector<GameNode*> m_children;
 
@@ -19,7 +19,7 @@ public:
 	Vec3 m_debugColour;
 
 	GameNode(Vec3 debugColour = { 1, 1, 1 })
-		: m_debugColour(debugColour), m_parent(nullptr) {};
+		: m_debugColour(debugColour) {};
 
 	// Update with a fixed timestep
 	virtual void Update(float delta) {};

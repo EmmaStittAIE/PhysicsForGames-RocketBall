@@ -2,32 +2,36 @@
 
 #include <vector>
 
-#include "TransformNode.h"
+#include "CollisionBody.h"
 #include "CollisionShape.h"
 
-class PhysicsBody : public TransformNode
+class CollisionInfo;
+
+class PhysicsBody : public CollisionBody
 {
 private:
 	std::vector<CollisionShape*> m_collisionShapes;
 
-	Vec2 m_velocity;
-	Vec2 m_acceleration;
+	Vec2 m_velocity{ 0, 0 };
+	Vec2 m_acceleration{ 0, 0 };
 
-	Vec2 m_netForce;
+	Vec2 m_netForce{ 0, 0 };
 
 	float m_mass;
 
-public:
-	bool m_isKinematic;
+	bool m_kinematic;
 	bool m_useGrav;
 
+public:
 	PhysicsBody(float xPos, float yPos, float mass, bool kinematic = false, bool useGrav = true, Vec3 debugColour = { 1, 1, 1 })
-		: TransformNode(xPos, yPos, debugColour), m_mass(mass), m_isKinematic(kinematic), m_useGrav(useGrav), m_velocity(0, 0), m_acceleration(0, 0), m_netForce(0, 0) {}
+		: CollisionBody(xPos, yPos, debugColour), m_mass(mass), m_kinematic(kinematic), m_useGrav(useGrav){}
 	PhysicsBody(Vec2 position, float mass, bool kinematic = false, bool useGrav = true, Vec3 debugColour = { 1, 1, 1 })
-		: TransformNode(position, debugColour), m_mass(mass), m_isKinematic(kinematic), m_useGrav(useGrav), m_velocity(0, 0), m_acceleration(0, 0), m_netForce(0, 0) {}
+		: CollisionBody(position, debugColour), m_mass(mass), m_kinematic(kinematic), m_useGrav(useGrav) {}
 
 	void Update(float delta) override;
 	void DebugDraw(LineRenderer* lines, Vec2 cameraPos, Vec2 cameraHalfExtents) override;
+
+	CollisionInfo CollideWithBody(CollisionBody* other) override;
 
 	void AddCollisionShape(CollisionShape* shape);
 	void RemoveCollisionShape(CollisionShape* shape);
@@ -41,5 +45,8 @@ public:
 	float GetMass();
 	void SetMass(float mass);
 
-	~PhysicsBody();
+	bool IsKinematic();
+	void SetKinematic(bool kinematic);
+	bool UsesGravity();
+	void SetUseGravity(bool useGravity);
 };

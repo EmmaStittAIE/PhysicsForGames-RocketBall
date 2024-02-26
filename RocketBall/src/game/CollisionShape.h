@@ -1,6 +1,6 @@
 #pragma once
 
-#include "TransformNode.h"
+#include "CollisionBody.h"
 
 class PhysicsBody;
 class CollisionInfo;
@@ -12,22 +12,24 @@ enum ShapeType
 	plane
 };
 
-class CollisionShape : public TransformNode
+class CollisionShape : public CollisionBody
 {
 protected:
 	// If not null, move this instead of children
-	PhysicsBody* m_parentPB;
+	PhysicsBody* m_parentPB = nullptr;
 
 	CollisionShape(float xPos, float yPos, ShapeType shapeType, Vec3 debugColour = { 1, 1, 1 })
-		: TransformNode(xPos, yPos, debugColour), m_parentPB(nullptr), m_shapeType(shapeType) {};
+		: CollisionBody(xPos, yPos, debugColour), m_shapeType(shapeType) {};
 	CollisionShape(Vec2 pos, ShapeType shapeType, Vec3 debugColour = { 1, 1, 1 })
-		: TransformNode(pos, debugColour), m_parentPB(nullptr), m_shapeType(shapeType) {};
+		: CollisionBody(pos, debugColour), m_shapeType(shapeType) {};
+
+protected:
+	virtual CollisionInfo CollideWithShape(CollisionShape* other) = 0;
 
 public:
 	ShapeType m_shapeType;
 
-	virtual CollisionInfo CollideWithShape(CollisionShape* other) = 0;
-	void ResolveCollision(CollisionInfo collision);
+	CollisionInfo CollideWithBody(CollisionBody* other) override;
 
 	void SetParentPB(PhysicsBody* physicsBody);
 	PhysicsBody* GetParentPB();

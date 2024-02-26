@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "RocketBall.h"
+#include "CollisionBody.h"
 #include "PhysicsBody.h"
 #include "CollisionShape.h"
 #include "CollisionCircle.h"
@@ -13,16 +14,33 @@ RocketBall::RocketBall()
 	: m_rootNode()
 {
 	// Create GameNodes from the bottom up (this will not be needed when editing tools are added later)
-	// TODO: fix bug with PhysicsBodys not behaving correctly when multiple CollisionShapes are present
-	CollisionCircle* collisionCircle1 = new CollisionCircle(0, 0, 2, { 1, 0.5f, 0 });
-	PhysicsBody* physicsBody1 = new PhysicsBody(0, 0, 2, false, false);
-	physicsBody1->AddChild(collisionCircle1);
-	physicsBody1->AddCollisionShape(collisionCircle1);
+	CollisionBox* collisionBox3 = new CollisionBox(0, -0, 4, 4, { 1, 0.5f, 0 });
+	CollisionCircle* collisionCircle4 = new CollisionCircle(2, -2, 0.5, { 1, 0.5f, 0 });
+	CollisionCircle* collisionCircle5 = new CollisionCircle(-2, -2, 0.5, { 1, 0.5f, 0 });
+	CollisionCircle* collisionCircle6 = new CollisionCircle(-2, 2, 0.5, { 1, 0.5f, 0 });
+	CollisionCircle* collisionCircle7 = new CollisionCircle(2, 2, 0.5, { 1, 0.5f, 0 });
+	PhysicsBody* physicsBody1 = new PhysicsBody(0, 0, 10, false, false);
+	physicsBody1->AddChild(collisionBox3);
+	physicsBody1->AddCollisionShape(collisionBox3);
+	physicsBody1->AddChild(collisionCircle4);
+	physicsBody1->AddCollisionShape(collisionCircle4);
+	physicsBody1->AddChild(collisionCircle5);
+	physicsBody1->AddCollisionShape(collisionCircle5);
+	physicsBody1->AddChild(collisionCircle6);
+	physicsBody1->AddCollisionShape(collisionCircle6);
+	physicsBody1->AddChild(collisionCircle7);
+	physicsBody1->AddCollisionShape(collisionCircle7);
 
-	CollisionBox* collisionBox1 = new CollisionBox(5, -1, 1, 1, { 1, 1, 1 });
-	PhysicsBody* physicsBody2 = new PhysicsBody(5, -1, 2, false, false);
+	CollisionBox* collisionBox1 = new CollisionBox(5, -1, 1, 1, { 1, 0.5f, 0 });
+	PhysicsBody* physicsBody2 = new PhysicsBody(5, -1, 1, false, false);
 	physicsBody2->AddChild(collisionBox1);
 	physicsBody2->AddCollisionShape(collisionBox1);
+
+	CollisionCircle* collisionCircle1 = new CollisionCircle(6, 7, 1, { 1, 0.5f, 0 });
+	PhysicsBody* physicsBody3 = new PhysicsBody(6, 7, 2, false, true);
+	physicsBody3->AddChild(collisionCircle1);
+	physicsBody3->AddCollisionShape(collisionCircle1);
+
 
 	CollisionCircle* collisionCircle2 = new CollisionCircle(-3, 4, 1, { 1, 1, 1 });
 
@@ -34,21 +52,30 @@ RocketBall::RocketBall()
 
 	m_rootNode.AddChild(physicsBody1);
 	m_rootNode.AddChild(physicsBody2);
+	m_rootNode.AddChild(physicsBody3);
 	m_rootNode.AddChild(collisionCircle2);
 	m_rootNode.AddChild(collisionCircle3);
 	m_rootNode.AddChild(collisionBox2);
 	m_rootNode.AddChild(collisionPlane1);
 
 	// Get shapes from m_gameNodes
-	m_collisionShapes = GetShapesFromChildren(&m_rootNode);
+	m_collisionBodies = GetBodiesFromChildren(&m_rootNode);
 }
 
 void RocketBall::Update(Vec2 cameraPos, Vec2 cameraHalfExtents, float delta)
 {
+	// Setup
+	m_collisionBodies = GetBodiesFromChildren(&m_rootNode);
+
 	// Input
 	if (m_bodyOnMouse != nullptr)
 	{
-		m_bodyOnMouse->SetVelocity({ 0, 0 });
+		PhysicsBody* bodyOnMousePB = dynamic_cast<PhysicsBody*>(m_bodyOnMouse);
+		if (bodyOnMousePB != nullptr)
+		{
+			bodyOnMousePB->SetVelocity({ 0, 0 });
+		}
+
 		m_bodyOnMouse->SetGlobalPos(cursorPos);
 	}
 
@@ -65,17 +92,17 @@ void RocketBall::Update(Vec2 cameraPos, Vec2 cameraHalfExtents, float delta)
 	for (int repeats = 0; repeats < 10; repeats++)
 	{
 		std::vector<CollisionInfo> allCollisions;
-		for (int i = 0; i < m_collisionShapes.size(); i++)
+		for (int i = 0; i < m_collisionBodies.size(); i++)
 		{
-			for (int j = i + 1; j < m_collisionShapes.size(); j++)
+			for (int j = i + 1; j < m_collisionBodies.size(); j++)
 			{
-				allCollisions.push_back(m_collisionShapes[i]->CollideWithShape(m_collisionShapes[j]));
+				allCollisions.push_back(m_collisionBodies[i]->CollideWithBody(m_collisionBodies[j]));
 			}
 		}
 
 		for (CollisionInfo& collision : allCollisions)
 		{
-			collision.shape1->ResolveCollision(collision);
+			CollisionFunctions::ResolveCollision(collision);
 		}
 	}
 
@@ -87,15 +114,11 @@ void RocketBall::Update(Vec2 cameraPos, Vec2 cameraHalfExtents, float delta)
 
 void RocketBall::OnLeftClick()
 {
-	for (int i = 0; i < m_collisionShapes.size(); i++)
+	for (int i = 0; i < m_collisionBodies.size(); i++)
 	{
-		if (CollisionFunctions::DoesPointHitShape(cursorPos, m_collisionShapes[i]))
+		if (CollisionFunctions::DoesPointHitBody(cursorPos, m_collisionBodies[i]))
 		{
-			PhysicsBody* shapePB = m_collisionShapes[i]->GetParentPB();
-			if (shapePB != nullptr)
-			{
-				m_bodyOnMouse = shapePB;
-			}
+			m_bodyOnMouse = m_collisionBodies[i];
 		}
 	}
 }
@@ -107,15 +130,12 @@ void RocketBall::OnLeftRelease()
 
 void RocketBall::OnRightClick()
 {
-	for (int i = 0; i < m_collisionShapes.size(); i++)
+	for (int i = 0; i < m_collisionBodies.size(); i++)
 	{
-		if (CollisionFunctions::DoesPointHitShape(cursorPos, m_collisionShapes[i]))
+		PhysicsBody* shapePB = dynamic_cast<PhysicsBody*>(m_collisionBodies[i]);
+		if (CollisionFunctions::DoesPointHitBody(cursorPos, shapePB))
 		{
-			PhysicsBody* shapePB = m_collisionShapes[i]->GetParentPB();
-			if (shapePB != nullptr)
-			{
-				m_bodyToFling = shapePB;
-			}
+			m_bodyToFling = shapePB;
 		}
 	}
 }
@@ -155,23 +175,30 @@ void RocketBall::DebugDrawChildren(GameNode* root, Vec2 cameraPos, Vec2 cameraHa
 	root->DebugDraw(lines, cameraPos, cameraHalfExtents);
 }
 
-std::vector<CollisionShape*> RocketBall::GetShapesFromChildren(GameNode* root)
+// Filters out any CollisionShapes that are assigned to a PhysicsBody
+std::vector<CollisionBody*> RocketBall::GetBodiesFromChildren(GameNode* root)
 {
 	std::vector<GameNode*> children = *root->GetChildren();
 
-	std::vector<CollisionShape*> shapes;
+	std::vector<CollisionBody*> bodies;
 
 	for (int i = 0; i < children.size(); i++)
 	{
-		std::vector<CollisionShape*> childShapes = GetShapesFromChildren(children[i]);
-		shapes.insert(shapes.end(), childShapes.begin(), childShapes.end());
+		std::vector<CollisionBody*> childBodies = GetBodiesFromChildren(children[i]);
+		bodies.insert(bodies.end(), childBodies.begin(), childBodies.end());
 	}
 
-	CollisionShape* rootShape = dynamic_cast<CollisionShape*>(root);
-	if (rootShape != nullptr)
+	CollisionBody* rootBody = dynamic_cast<CollisionBody*>(root);
+	if (rootBody != nullptr)
 	{
-		shapes.push_back(rootShape);
+		CollisionShape* rootShape = dynamic_cast<CollisionShape*>(root);
+		if (rootShape != nullptr && rootShape->GetParentPB() != nullptr)
+		{
+			return bodies;
+		}
+
+		bodies.push_back(rootBody);
 	}
 
-	return shapes;
+	return bodies;
 }

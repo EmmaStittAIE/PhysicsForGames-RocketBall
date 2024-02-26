@@ -1,39 +1,23 @@
 #include "CollisionShape.h"
 #include "PhysicsBody.h"
 #include "CollisionInfo.h"
+#include "Logger.h"
 
-void CollisionShape::ResolveCollision(CollisionInfo collision)
+CollisionInfo CollisionShape::CollideWithBody(CollisionBody* other)
 {
-	if (collision.penetrationDepth >= 0)
+	CollisionShape* otherShape = dynamic_cast<CollisionShape*>(other);
+	if (otherShape != nullptr)
 	{
-		// Gotta be a better way of doing this...
-		PhysicsBody* physBod1 = collision.shape1->m_parentPB;
-		PhysicsBody* physBod2 = collision.shape2->m_parentPB;
-
-		if (physBod1 != nullptr && physBod1->m_isKinematic == false)
-		{
-			if (physBod2 != nullptr && physBod2->m_isKinematic == false)
-			{
-				float pb1Mass = physBod1->GetMass();
-				float pb2Mass = physBod2->GetMass();
-				float totalMass = pb1Mass + pb2Mass;
-
-				physBod1->MovePos(-collision.normal * collision.penetrationDepth * (pb1Mass / totalMass));
-				physBod2->MovePos(collision.normal * collision.penetrationDepth * (pb2Mass / totalMass));
-			}
-			else
-			{
-				physBod1->MovePos(-collision.normal * collision.penetrationDepth);
-			}
-		}
-		else
-		{
-			if (physBod2 != nullptr && physBod2->m_isKinematic == false)
-			{
-				physBod2->MovePos(collision.normal * collision.penetrationDepth);
-			}
-		}
+		return CollideWithShape(otherShape);
 	}
+
+	PhysicsBody* otherPB = dynamic_cast<PhysicsBody*>(other);
+	if (otherPB != nullptr)
+	{
+		return otherPB->CollideWithBody(this);
+	}
+
+	return CollisionInfo();
 }
 
 void CollisionShape::SetParentPB(PhysicsBody* physicsBody)

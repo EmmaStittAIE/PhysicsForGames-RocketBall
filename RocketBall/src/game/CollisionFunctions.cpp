@@ -1,9 +1,12 @@
 #include "CollisionFunctions.h"
 
 #include "CollisionInfo.h"
+#include "CollisionBody.h"
+#include "PhysicsBody.h"
 #include "CollisionShape.h"
 #include "CollisionCircle.h"
 #include "CollisionBox.h"
+#include "CollisionPlane.h"
 #include "Logger.h"
 
 CollisionInfo CollisionFunctions::CollideCircleWithCircle(CollisionCircle* circle1, CollisionCircle* circle2)
@@ -105,10 +108,17 @@ CollisionInfo CollisionFunctions::CollideCircleWithBox(CollisionCircle* circle, 
 	return collision;
 }
 
-CollisionInfo CollisionFunctions::CollideCircleWithPlane(CollisionCircle* shape1, CollisionPlane* shape2)
+CollisionInfo CollisionFunctions::CollideCircleWithPlane(CollisionCircle* circle, CollisionPlane* plane)
 {
+	CollisionInfo collision;
 
-	return CollisionInfo();
+	collision.shape1 = circle;
+	collision.shape2 = plane;
+
+	collision.penetrationDepth = glm::dot(circle->GetGlobalPos(), plane->GetNormal()) - plane->GetDistFromOrigin() - circle->GetRadius();
+	collision.normal = plane->GetNormal();
+
+	return collision;
 }
 
 CollisionInfo CollisionFunctions::CollideBoxWithBox(CollisionBox* box1, CollisionBox* box2)
@@ -176,18 +186,67 @@ CollisionInfo CollisionFunctions::CollideBoxWithBox(CollisionBox* box1, Collisio
 	return CollisionInfo();
 }
 
-CollisionInfo CollisionFunctions::CollideBoxWithPlane(CollisionBox* shape1, CollisionPlane* shape2)
+CollisionInfo CollisionFunctions::CollideBoxWithPlane(CollisionBox* box, CollisionPlane* plane)
 {
 	return CollisionInfo();
 }
 
-void CollisionFunctions::DepenetrateShapes(CollisionInfo collision)
+void CollisionFunctions::ResolveCollision(CollisionInfo collision)
 {
 	if (collision.penetrationDepth >= 0)
 	{
-		collision.shape1->MovePos(-collision.normal * collision.penetrationDepth * 0.5f);
-		collision.shape2->MovePos(collision.normal * collision.penetrationDepth * 0.5f);
+		// Gotta be a better way of doing this...
+		PhysicsBody* physBod1 = collision.shape1->GetParentPB();
+		PhysicsBody* physBod2 = collision.shape2->GetParentPB();
+
+		if (physBod1 != nullptr && physBod1->IsKinematic() == false)
+		{
+			if (physBod2 != nullptr && physBod2->IsKinematic() == false)
+			{
+				float pb1Mass = physBod1->GetMass();
+				float pb2Mass = physBod2->GetMass();
+				float totalMass = pb1Mass + pb2Mass;
+
+				physBod1->MovePos(-collision.normal * collision.penetrationDepth * (pb1Mass / totalMass));
+				physBod2->MovePos(collision.normal * collision.penetrationDepth * (pb2Mass / totalMass));
+			}
+			else
+			{
+				physBod1->MovePos(-collision.normal * collision.penetrationDepth);
+			}
+		}
+		else
+		{
+			if (physBod2 != nullptr && physBod2->IsKinematic() == false)
+			{
+				physBod2->MovePos(collision.normal * collision.penetrationDepth);
+			}
+		}
 	}
+}
+
+bool CollisionFunctions::DoesPointHitBody(Vec2 point, CollisionBody* body)
+{
+	CollisionShape* bodyShape = dynamic_cast<CollisionShape*>(body);
+	if (bodyShape != nullptr)
+	{
+		return DoesPointHitShape(point, bodyShape);
+	}
+
+	PhysicsBody* bodyPB = dynamic_cast<PhysicsBody*>(body);
+	if (bodyPB != nullptr)
+	{
+		for (CollisionShape* shape : *bodyPB->GetCollisionShapes())
+		{
+			if (DoesPointHitShape(point, shape))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	return false;
 }
 
 bool CollisionFunctions::DoesPointHitShape(Vec2 point, CollisionShape* shape)

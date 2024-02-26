@@ -1,12 +1,13 @@
 #include <sstream>
 
 #include "PhysicsBody.h"
+#include "CollisionInfo.h"
 #include "PhysicsConsts.h"
 #include "Logger.h"
 
 void PhysicsBody::Update(float delta)
 {
-	if (!m_isKinematic)
+	if (!m_kinematic)
 	{
 		if (m_useGrav)
 		{
@@ -36,11 +37,27 @@ void PhysicsBody::DebugDraw(LineRenderer* lines, Vec2 cameraPos, Vec2 cameraHalf
 	}
 }
 
+CollisionInfo PhysicsBody::CollideWithBody(CollisionBody* other)
+{
+	CollisionInfo deepestCollision;
+	for (CollisionShape* shape : m_collisionShapes)
+	{
+		CollisionInfo shapeCollision = shape->CollideWithBody(other);
+
+		if (shapeCollision.penetrationDepth > deepestCollision.penetrationDepth)
+		{
+			deepestCollision = shapeCollision;
+		}
+	}
+
+	return deepestCollision;
+}
+
 void PhysicsBody::AddCollisionShape(CollisionShape* shape)
 {
-	if (shape->m_shapeType == ShapeType::plane)
+	if (!m_kinematic && shape->m_shapeType == ShapeType::plane)
 	{
-		Logger::LogError("Cannot use a plane as a collision shape for a RigidBody");
+		Logger::LogError("Cannot use a plane as a collision shape for a non-kinematic RigidBody");
 		return;
 	}
 
@@ -98,10 +115,35 @@ void PhysicsBody::SetMass(float mass)
 	m_mass = mass;
 }
 
-PhysicsBody::~PhysicsBody()
+bool PhysicsBody::IsKinematic()
 {
-	for (int i = 0; i < m_collisionShapes.size(); i++)
+	return m_kinematic;
+}
+
+void PhysicsBody::SetKinematic(bool kinematic)
+{
+	// A rigidbody must be kinematic to host a plane CollisionShape, so we stop the user from setting kinematic to false if that is the case
+	if (!kinematic)
 	{
-		delete(m_collisionShapes[i]);
+		for (CollisionShape* shape : m_collisionShapes)
+		{
+			if (shape->m_shapeType == plane)
+			{
+				Logger::LogError("PhysicsBody with plane collision shape cannot become dynamic");
+				return;
+			}
+		}
 	}
+
+	m_kinematic = kinematic;
+}
+
+bool PhysicsBody::UsesGravity()
+{
+	return m_useGrav;
+}
+
+void PhysicsBody::SetUseGravity(bool useGravity)
+{
+	m_useGrav = useGravity;
 }

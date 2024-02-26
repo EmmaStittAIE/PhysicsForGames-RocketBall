@@ -175,6 +175,9 @@
     <ClInclude Include="..\src\game\CollisionPlane.h">
       <Filter>Game\RocketBall\GameNodes\Shapes</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\game\CollisionBody.h">
+      <Filter>Game\RocketBall\GameNodes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
