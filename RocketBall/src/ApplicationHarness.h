@@ -11,7 +11,7 @@
 class ApplicationHarness
 {
 	Application* app = nullptr;
-	float cameraHeight = 10.0f;
+	float cameraHeight = 45.0f;
 	Vec2 cameraCentre = { 0.0f, 0.0f };
 	GLFWwindow* window = nullptr;
 

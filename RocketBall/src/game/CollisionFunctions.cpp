@@ -229,6 +229,10 @@ void CollisionFunctions::ResolveCollision(CollisionInfo collision)
 {
 	if (collision.penetrationDepth > 0)
 	{
+		// value between 1 and 2 - in place of calculating elasticity of collisions between objects with seperate elasticity values,
+		// we just make every collision have the same elasticity for simplicity
+		float collisionElasticity = 1.9;
+
 		// Gotta be a better way of doing this...
 		PhysicsBody* physBod1 = collision.shape1->GetParentPB();
 		PhysicsBody* physBod2 = collision.shape2->GetParentPB();
@@ -244,13 +248,16 @@ void CollisionFunctions::ResolveCollision(CollisionInfo collision)
 				physBod1->MovePos(-collision.normal * collision.penetrationDepth * (pb2Mass / totalMass));
 				physBod2->MovePos(collision.normal * collision.penetrationDepth * (pb1Mass / totalMass));
 
-				float rawForce = (2 * glm::dot(physBod1->GetVelocity() - physBod2->GetVelocity(), collision.normal)) / (physBod1->GetInverseMass() + physBod2->GetInverseMass());
+				float rawForce = (collisionElasticity * glm::dot(physBod1->GetVelocity() - physBod2->GetVelocity(), collision.normal)) / (physBod1->GetInverseMass() + physBod2->GetInverseMass());
 				physBod1->ApplyImpulse(-rawForce * collision.normal);
 				physBod2->ApplyImpulse(rawForce * collision.normal);
 			}
 			else
 			{
 				physBod1->MovePos(-collision.normal * collision.penetrationDepth);
+
+				float rawForce = collisionElasticity * physBod1->GetMass() * glm::dot(physBod1->GetVelocity(), collision.normal);
+				physBod1->ApplyImpulse(-rawForce * collision.normal);
 			}
 		}
 		else
@@ -258,6 +265,9 @@ void CollisionFunctions::ResolveCollision(CollisionInfo collision)
 			if (physBod2 != nullptr && physBod2->IsKinematic() == false)
 			{
 				physBod2->MovePos(collision.normal * collision.penetrationDepth);
+
+				float rawForce = collisionElasticity * physBod2->GetMass() * glm::dot(physBod2->GetVelocity(), collision.normal);
+				physBod2->ApplyImpulse(-rawForce * collision.normal);
 			}
 		}
 	}

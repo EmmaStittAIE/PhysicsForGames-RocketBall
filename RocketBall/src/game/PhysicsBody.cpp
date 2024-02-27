@@ -11,7 +11,7 @@ void PhysicsBody::Update(float delta)
 	{
 		if (m_useGrav)
 		{
-			ApplyForce(physics::gravity * physics::vec2Down);
+			ApplyForce(physics::gravity * m_mass * physics::vec2Down);
 		}
 
 		// Velocity
