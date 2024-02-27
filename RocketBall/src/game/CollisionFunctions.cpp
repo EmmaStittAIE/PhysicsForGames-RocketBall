@@ -95,7 +95,7 @@ CollisionInfo CollisionFunctions::CollideCircleWithBox(CollisionCircle* circle, 
 		default:
 			Logger::LogError("'indexOfSmallest' is out of bounds");
 		}
-		}
+	}
 	else
 	{
 		collision.shape1 = circle;
@@ -115,8 +115,9 @@ CollisionInfo CollisionFunctions::CollideCircleWithPlane(CollisionCircle* circle
 	collision.shape1 = circle;
 	collision.shape2 = plane;
 
-	collision.penetrationDepth = glm::dot(circle->GetGlobalPos(), plane->GetNormal()) - plane->GetDistFromOrigin() - circle->GetRadius();
-	collision.normal = plane->GetNormal();
+	collision.penetrationDepth = -(glm::dot(circle->GetGlobalPos(), plane->GetNormal()) - plane->GetDistFromOrigin() - circle->GetRadius());
+	// The normal needs to be reversed, as the plane is going to be treated as "shape2"
+	collision.normal = -plane->GetNormal();
 
 	return collision;
 }
@@ -183,12 +184,45 @@ CollisionInfo CollisionFunctions::CollideBoxWithBox(CollisionBox* box1, Collisio
 	}
 
 	return collision;
-	return CollisionInfo();
 }
 
 CollisionInfo CollisionFunctions::CollideBoxWithPlane(CollisionBox* box, CollisionPlane* plane)
 {
-	return CollisionInfo();
+	CollisionInfo collision;
+
+	Vec2 boxGlobalPos = box->GetGlobalPos();
+	Vec2 boxHalfExtents = { box->GetHalfWidth(), box->GetHalfHeight() };
+
+	Vec2 planeNormal = plane->GetNormal();
+	float planeDistFromOrigin = plane->GetDistFromOrigin();
+
+	Vec2 boxPoints[4]
+	{
+		boxGlobalPos - Vec2(boxHalfExtents.x, boxHalfExtents.y),
+		boxGlobalPos - Vec2(boxHalfExtents.x, -boxHalfExtents.y),
+		boxGlobalPos - Vec2(-boxHalfExtents.x, -boxHalfExtents.y),
+		boxGlobalPos - Vec2(-boxHalfExtents.x, boxHalfExtents.y)
+	};
+	
+	float deepestCollision = -FLT_MAX;
+	for (int i = 1; i < 4; i++)
+	{
+		float collisionDepth = -(glm::dot(boxPoints[i], planeNormal) - planeDistFromOrigin);
+
+		if (collisionDepth > deepestCollision)
+		{
+			deepestCollision = collisionDepth;
+		}
+	}
+
+	collision.shape1 = box;
+	collision.shape2 = plane;
+
+	collision.penetrationDepth = deepestCollision;
+	// The normal needs to be reversed, as the plane is going to be treated as "shape2"
+	collision.normal = -plane->GetNormal();
+
+	return collision;
 }
 
 // TODO: fix reversed normal for plane, despite plane's normal value  being the correct way round
@@ -261,16 +295,12 @@ bool CollisionFunctions::DoesPointHitShape(Vec2 point, CollisionShape* shape)
 		return DoesPointHitBox(point, (CollisionBox*)shape);
 
 	case ShapeType::plane:
-		//return DoesPointHitPlane(point, (Plane*)shape);
-		Logger::LogWarning("'plane' is not implemented");
-		return false;
+		return DoesPointHitPlane(point, (CollisionPlane*)shape);
 
 	default:
 		Logger::LogError("Shape 'shape' does not contain a valid shape");
 		return false;
-
 	}
-
 	return false;
 }
 
@@ -289,4 +319,10 @@ bool CollisionFunctions::DoesPointHitBox(Vec2 point, CollisionBox* box)
 	Vec2 clampedPoint = glm::clamp(point, boxPos - halfExtents, boxPos + halfExtents);
 
 	return clampedPoint == point;
+}
+
+bool CollisionFunctions::DoesPointHitPlane(Vec2 point, CollisionPlane* plane)
+{
+
+	return (glm::dot(point, plane->GetNormal()) - plane->GetDistFromOrigin()) < 0;
 }

@@ -33,7 +33,7 @@ CollisionInfo CollisionCircle::CollideWithShape(CollisionShape* other)
 		return CollisionFunctions::CollideCircleWithPlane(this, (CollisionPlane*)other);
 
 	default:
-		//Logger::LogError("Shape 'circle2' does not contain a valid shape");
+		Logger::LogError("Shape 'other' does not contain a valid shape");
 		return CollisionInfo();
 	}
 }

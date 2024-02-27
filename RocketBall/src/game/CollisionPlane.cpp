@@ -26,14 +26,13 @@ void CollisionPlane::DebugDraw(LineRenderer* lines, Vec2 cameraPos, Vec2 cameraH
 
 CollisionInfo CollisionPlane::CollideWithShape(CollisionShape* other)
 {
-	//TODO: implement plane collisions
 	switch (other->m_shapeType)
 	{
 	case ShapeType::circle:
 		return CollisionFunctions::CollideCircleWithPlane((CollisionCircle*)other, this);
 
 	case ShapeType::box:
-		//return CollisionFunctions::CollideBoxWithPlane((CollisionBox*)other, this);
+		return CollisionFunctions::CollideBoxWithPlane((CollisionBox*)other, this);
 		return CollisionInfo();
 
 	case ShapeType::plane:
@@ -41,7 +40,7 @@ CollisionInfo CollisionPlane::CollideWithShape(CollisionShape* other)
 		return CollisionInfo();
 
 	default:
-		//Logger::LogError("Shape 'circle2' does not contain a valid shape");
+		Logger::LogError("Shape 'other' does not contain a valid shape");
 		return CollisionInfo();
 	}
 }
