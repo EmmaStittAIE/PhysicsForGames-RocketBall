@@ -8,6 +8,8 @@ public:
 	// janky update to pass along the window's dimensions for drawing
 	virtual void Update(Vec2 cameraPos, Vec2 cameraHalfExtents, float delta) = 0;
 
+	virtual ~Application() = default;
+
 	bool leftMouseDown;
 	bool rightMouseDown;
 	Vec2 cursorPos;
