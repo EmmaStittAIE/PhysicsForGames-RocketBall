@@ -24,7 +24,7 @@ private:
 
 public:
 	PhysicsBody(float xPos, float yPos, float mass, bool kinematic = false, bool useGrav = true, Vec3 debugColour = { 1, 1, 1 })
-		: CollisionBody(xPos, yPos, debugColour), m_mass(mass), m_kinematic(kinematic), m_useGrav(useGrav){}
+		: CollisionBody(xPos, yPos, debugColour), m_mass(mass), m_kinematic(kinematic), m_useGrav(useGrav) {}
 	PhysicsBody(Vec2 position, float mass, bool kinematic = false, bool useGrav = true, Vec3 debugColour = { 1, 1, 1 })
 		: CollisionBody(position, debugColour), m_mass(mass), m_kinematic(kinematic), m_useGrav(useGrav) {}
 
@@ -42,8 +42,10 @@ public:
 
 	Vec2 GetVelocity();
 	void SetVelocity(Vec2 velocity);
+	float GetInverseMass();
 	float GetMass();
 	void SetMass(float mass);
+	Vec2 GetMomentum();
 
 	bool IsKinematic();
 	void SetKinematic(bool kinematic);

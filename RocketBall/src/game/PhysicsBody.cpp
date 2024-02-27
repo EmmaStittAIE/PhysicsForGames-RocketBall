@@ -105,6 +105,11 @@ void PhysicsBody::SetVelocity(Vec2 velocity)
 	m_velocity = velocity;
 }
 
+float PhysicsBody::GetInverseMass()
+{
+	return 1/m_mass;
+}
+
 float PhysicsBody::GetMass()
 {
 	return m_mass;
@@ -113,6 +118,11 @@ float PhysicsBody::GetMass()
 void PhysicsBody::SetMass(float mass)
 {
 	m_mass = mass;
+}
+
+Vec2 PhysicsBody::GetMomentum()
+{
+	return m_mass * m_velocity;
 }
 
 bool PhysicsBody::IsKinematic()

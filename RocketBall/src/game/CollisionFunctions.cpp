@@ -225,25 +225,28 @@ CollisionInfo CollisionFunctions::CollideBoxWithPlane(CollisionBox* box, Collisi
 	return collision;
 }
 
-// TODO: fix reversed normal for plane, despite plane's normal value  being the correct way round
 void CollisionFunctions::ResolveCollision(CollisionInfo collision)
 {
-	if (collision.penetrationDepth >= 0)
+	if (collision.penetrationDepth > 0)
 	{
 		// Gotta be a better way of doing this...
 		PhysicsBody* physBod1 = collision.shape1->GetParentPB();
 		PhysicsBody* physBod2 = collision.shape2->GetParentPB();
 
-		if (physBod1 != nullptr && physBod1->IsKinematic() == false)
+		if (physBod1 != nullptr && !physBod1->IsKinematic())
 		{
-			if (physBod2 != nullptr && physBod2->IsKinematic() == false)
+			if (physBod2 != nullptr && !physBod2->IsKinematic())
 			{
 				float pb1Mass = physBod1->GetMass();
 				float pb2Mass = physBod2->GetMass();
 				float totalMass = pb1Mass + pb2Mass;
 
-				physBod1->MovePos(-collision.normal * collision.penetrationDepth * (pb1Mass / totalMass));
-				physBod2->MovePos(collision.normal * collision.penetrationDepth * (pb2Mass / totalMass));
+				physBod1->MovePos(-collision.normal * collision.penetrationDepth * (pb2Mass / totalMass));
+				physBod2->MovePos(collision.normal * collision.penetrationDepth * (pb1Mass / totalMass));
+
+				float rawForce = (2 * glm::dot(physBod1->GetVelocity() - physBod2->GetVelocity(), collision.normal)) / (physBod1->GetInverseMass() + physBod2->GetInverseMass());
+				physBod1->ApplyImpulse(-rawForce * collision.normal);
+				physBod2->ApplyImpulse(rawForce * collision.normal);
 			}
 			else
 			{
