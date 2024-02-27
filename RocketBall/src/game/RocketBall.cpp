@@ -14,75 +14,46 @@ RocketBall::RocketBall()
 	: m_rootNode()
 {
 	// Create GameNodes from the bottom up (this will not be needed when editing tools are added later)
-	/*CollisionBox* collisionBox3 = new CollisionBox(0, -0, 4, 4, {1, 0.5f, 0});
-	CollisionCircle* collisionCircle4 = new CollisionCircle(2, -2, 0.5, { 1, 0.5f, 0 });
-	CollisionCircle* collisionCircle5 = new CollisionCircle(-2, -2, 0.5, { 1, 0.5f, 0 });
-	CollisionCircle* collisionCircle6 = new CollisionCircle(-2, 2, 0.5, { 1, 0.5f, 0 });
-	CollisionCircle* collisionCircle7 = new CollisionCircle(2, 2, 0.5, { 1, 0.5f, 0 });
-	PhysicsBody* physicsBody1 = new PhysicsBody(0, 0, 10, false, false, { 1, 0.5f, 0 });
-	physicsBody1->AddChild(collisionBox3);
-	physicsBody1->AddCollisionShape(collisionBox3);
-	physicsBody1->AddChild(collisionCircle4);
-	physicsBody1->AddCollisionShape(collisionCircle4);
-	physicsBody1->AddChild(collisionCircle5);
-	physicsBody1->AddCollisionShape(collisionCircle5);
-	physicsBody1->AddChild(collisionCircle6);
-	physicsBody1->AddCollisionShape(collisionCircle6);
-	physicsBody1->AddChild(collisionCircle7);
-	physicsBody1->AddCollisionShape(collisionCircle7);
+	// Bounding planes
+	CollisionPlane* rightBoundsPlane = new CollisionPlane(15, 0, 90, { 200, 0, 0 });
+	CollisionPlane* leftBoundsPlane = new CollisionPlane(-15, 0, -90, { 200, 0, 0 });
+	CollisionPlane* topBoundsPlane = new CollisionPlane(0, 20, 180, { 200, 0, 0 });
+	CollisionPlane* bottomRightBoundsPlane = new CollisionPlane(7.5, -15, 45, { 200, 0, 0 });
+	CollisionPlane* bottomLeftBoundsPlane = new CollisionPlane(-7.5, -15, -45, { 200, 0, 0 });
 
-	CollisionBox* collisionBox1 = new CollisionBox(5, -1, 3, 3, { 1, 0.5f, 0 });
-	PhysicsBody* physicsBody2 = new PhysicsBody(5, -1, 1, false, false, { 1, 0.5f, 0 });
-	physicsBody2->AddChild(collisionBox1);
-	physicsBody2->AddCollisionShape(collisionBox1);
-
-	CollisionCircle* collisionCircle1 = new CollisionCircle(6, -20, 1, { 1, 0.5f, 0 });
-	PhysicsBody* physicsBody3 = new PhysicsBody(6, -20, 2, false, false, { 1, 0.5f, 0 });
-	physicsBody3->AddChild(collisionCircle1);
-	physicsBody3->AddCollisionShape(collisionCircle1);
-
-
-	CollisionCircle* collisionCircle2 = new CollisionCircle(-3, 4, 1, { 1, 1, 1 });
-
-	CollisionCircle* collisionCircle3 = new CollisionCircle(-5, -7, 5, { 1, 1, 1 });
-
-	CollisionBox* collisionBox2 = new CollisionBox(0, -11, 10, 2, { 1, 1, 1 });
-
-	CollisionPlane* collisionPlane1 = new CollisionPlane(0, -15, 0, { 1, 1, 1 });
-
-	m_rootNode.AddChild(physicsBody1);
-	m_rootNode.AddChild(physicsBody2);
-	m_rootNode.AddChild(physicsBody3);
-	m_rootNode.AddChild(collisionCircle2);
-	m_rootNode.AddChild(collisionCircle3);
-	m_rootNode.AddChild(collisionBox2);
-	m_rootNode.AddChild(collisionPlane1);*/
-
-	CollisionPlane* rightBoundsPlane = new CollisionPlane(15, 0, 90, { 1, 1, 1 });
-	CollisionPlane* leftBoundsPlane = new CollisionPlane(-15, 0, -90, { 1, 1, 1 });
-	CollisionPlane* topBoundsPlane = new CollisionPlane(0, 20, 180, { 1, 1, 1 });
-	CollisionPlane* bottomRightBoundsPlane = new CollisionPlane(7.5, -15, 45, { 1, 1, 1 });
-	CollisionPlane* bottomLeftBoundsPlane = new CollisionPlane(-7.5, -15, -45, { 1, 1, 1 });
-
-	CollisionCircle* pachinkoBallCollider = new CollisionCircle(-5, 18, 1, { 1, 0.5f, 0 });
-	PhysicsBody* pachinkoBall = new PhysicsBody(-5, 18, 2, false, true, { 1, 0.5f, 0 });
+	// PhysicsBodies
+	// TODO: apply a random impulse to these, just for fun
+	CollisionCircle* pachinkoBallCollider = new CollisionCircle(-5, 18, 1, { 195, 177, 225 });
+	PhysicsBody* pachinkoBall = new PhysicsBody(-5, 18, 2, false, true, { 255, 255, 255 });
 	pachinkoBall->AddChild(pachinkoBallCollider);
 	pachinkoBall->AddCollisionShape(pachinkoBallCollider);
 
-	CollisionCircle* pachinkoBallCollider2 = new CollisionCircle(5, 18, 3, { 1, 0.5f, 0 });
-	PhysicsBody* pachinkoBall2 = new PhysicsBody(5, 18, 4, false, true, { 1, 0.5f, 0 });
+	CollisionCircle* pachinkoBallCollider2 = new CollisionCircle(5, 18, 2, Vec3{ 195, 177, 225 });
+	PhysicsBody* pachinkoBall2 = new PhysicsBody(5, 18, 4, false, true, { 255, 255, 255 });
 	pachinkoBall2->AddChild(pachinkoBallCollider2);
 	pachinkoBall2->AddCollisionShape(pachinkoBallCollider2);
 
-	CollisionBox* pachinkoSquareCollider = new CollisionBox(10, 18, 2, 2, { 1, 0.5f, 0 });
-	PhysicsBody* pachinkoSquare = new PhysicsBody(10, 18, 4, false, true, { 1, 0.5f, 0 });
+	CollisionBox* pachinkoSquareCollider = new CollisionBox(10, 18, 2, 2, Vec3{ 195, 177, 225 });
+	PhysicsBody* pachinkoSquare = new PhysicsBody(10, 18, 4, false, true, { 255, 255, 255 });
 	pachinkoSquare->AddChild(pachinkoSquareCollider);
 	pachinkoSquare->AddCollisionShape(pachinkoSquareCollider);
 
-	CollisionBox* pachinkoRectangleCollider = new CollisionBox(-10, 18, 1, 3, { 1, 0.5f, 0 });
-	PhysicsBody* pachinkoRectangle = new PhysicsBody(-10, 18, 3, false, true, { 1, 0.5f, 0 });
+	CollisionBox* pachinkoRectangleCollider = new CollisionBox(-10, 18, 1, 3, Vec3{ 195, 177, 225 });
+	PhysicsBody* pachinkoRectangle = new PhysicsBody(-10, 18, 3, false, true, { 255, 255, 255 });
 	pachinkoRectangle->AddChild(pachinkoRectangleCollider);
 	pachinkoRectangle->AddCollisionShape(pachinkoRectangleCollider);
+
+	// Static CollisionShapes
+	CollisionCircle* circlePeg1 = new CollisionCircle(12, 10, 1, { 188, 106, 60 });
+	CollisionCircle* circlePeg2 = new CollisionCircle(6, 10, 1, { 188, 106, 60 });
+	CollisionCircle* circlePeg3 = new CollisionCircle(0, 10, 1, { 188, 106, 60 });
+	CollisionCircle* circlePeg4 = new CollisionCircle(-6, 10, 1, { 188, 106, 60 });
+	CollisionCircle* circlePeg5 = new CollisionCircle(-12, 10, 1, { 188, 106, 60 });
+
+	CollisionBox* boxPeg1 = new CollisionBox(9, 3, 2, 2, { 213,176,124 });
+	CollisionBox* boxPeg2 = new CollisionBox(3, 3, 2, 2, { 213,176,124 });
+	CollisionBox* boxPeg3 = new CollisionBox(-3, 3, 2, 2, { 213,176,124 });
+	CollisionBox* boxPeg4 = new CollisionBox(-9, 3, 2, 2, { 213,176,124 });
 
 	m_rootNode.AddChild(rightBoundsPlane);
 	m_rootNode.AddChild(leftBoundsPlane);
@@ -94,6 +65,17 @@ RocketBall::RocketBall()
 	m_rootNode.AddChild(pachinkoBall2);
 	m_rootNode.AddChild(pachinkoSquare);
 	m_rootNode.AddChild(pachinkoRectangle);
+
+	m_rootNode.AddChild(circlePeg1);
+	m_rootNode.AddChild(circlePeg2);
+	m_rootNode.AddChild(circlePeg3);
+	m_rootNode.AddChild(circlePeg4);
+	m_rootNode.AddChild(circlePeg5);
+
+	m_rootNode.AddChild(boxPeg1);
+	m_rootNode.AddChild(boxPeg2);
+	m_rootNode.AddChild(boxPeg3);
+	m_rootNode.AddChild(boxPeg4);
 
 	// Get shapes from m_gameNodes
 	m_collisionBodies = GetBodiesFromChildren(&m_rootNode);
