@@ -8,7 +8,6 @@
 class GameNode
 {
 protected:
-	// TODO: implement scene tree
 	GameNode* m_parent = nullptr;
 
 	std::vector<GameNode*> m_children;
