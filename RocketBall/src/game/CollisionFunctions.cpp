@@ -198,14 +198,14 @@ CollisionInfo CollisionFunctions::CollideBoxWithPlane(CollisionBox* box, Collisi
 
 	Vec2 boxPoints[4]
 	{
-		boxGlobalPos - Vec2(boxHalfExtents.x, boxHalfExtents.y),
-		boxGlobalPos - Vec2(boxHalfExtents.x, -boxHalfExtents.y),
-		boxGlobalPos - Vec2(-boxHalfExtents.x, -boxHalfExtents.y),
-		boxGlobalPos - Vec2(-boxHalfExtents.x, boxHalfExtents.y)
+		boxGlobalPos + Vec2(boxHalfExtents.x, boxHalfExtents.y),
+		boxGlobalPos + Vec2(boxHalfExtents.x, -boxHalfExtents.y),
+		boxGlobalPos + Vec2(-boxHalfExtents.x, -boxHalfExtents.y),
+		boxGlobalPos + Vec2(-boxHalfExtents.x, boxHalfExtents.y)
 	};
 	
 	float deepestCollision = -FLT_MAX;
-	for (int i = 1; i < 4; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		float collisionDepth = -(glm::dot(boxPoints[i], planeNormal) - planeDistFromOrigin);
 
