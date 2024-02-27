@@ -8,6 +8,7 @@ Physics:
  - CollisionShapes
 	- Circle
 	- Box
+	- Plane
  - Collision detection
  - Collision resolution
  
@@ -17,7 +18,6 @@ Physics:
 ### Planned
 Physics:
 - CollisionShapes
-	- Plane
 	- Mesh
  - Rotations
  - Rocket
