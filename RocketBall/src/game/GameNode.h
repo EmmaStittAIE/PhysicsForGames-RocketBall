@@ -17,8 +17,8 @@ public:
 
 	Vec3 m_debugColour;
 
-	GameNode(Vec3 debugColour = { 1, 1, 1 })
-		: m_debugColour(debugColour) {};
+	GameNode(Vec3 debugColour = { 255, 255, 255 })
+		: m_debugColour(debugColour / 255.0f) {};
 
 	// Update with a fixed timestep
 	virtual void Update(float delta) {};

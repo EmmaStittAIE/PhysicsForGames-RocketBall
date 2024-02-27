@@ -23,9 +23,9 @@ private:
 	bool m_useGrav;
 
 public:
-	PhysicsBody(float xPos, float yPos, float mass, bool kinematic = false, bool useGrav = true, Vec3 debugColour = { 1, 1, 1 })
+	PhysicsBody(float xPos, float yPos, float mass, bool kinematic = false, bool useGrav = true, Vec3 debugColour = { 255, 255, 255 })
 		: CollisionBody(xPos, yPos, debugColour), m_mass(mass), m_kinematic(kinematic), m_useGrav(useGrav) {}
-	PhysicsBody(Vec2 position, float mass, bool kinematic = false, bool useGrav = true, Vec3 debugColour = { 1, 1, 1 })
+	PhysicsBody(Vec2 position, float mass, bool kinematic = false, bool useGrav = true, Vec3 debugColour = { 255, 255, 255 })
 		: CollisionBody(position, debugColour), m_mass(mass), m_kinematic(kinematic), m_useGrav(useGrav) {}
 
 	void Update(float delta) override;

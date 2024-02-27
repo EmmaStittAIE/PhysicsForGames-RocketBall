@@ -8,9 +8,9 @@ protected:
 	Vec2 m_localPosition;
 
 public:
-	TransformNode(float xPos, float yPos, Vec3 debugColour = { 1, 1, 1 })
+	TransformNode(float xPos, float yPos, Vec3 debugColour = { 255, 255, 255 })
 		: GameNode(debugColour), m_localPosition(xPos, yPos) {};
-	TransformNode(Vec2 pos, Vec3 debugColour = { 1, 1, 1 })
+	TransformNode(Vec2 pos, Vec3 debugColour = { 255, 255, 255 })
 		: GameNode(debugColour), m_localPosition(pos) {};
 
 	void DebugDraw(LineRenderer* lines, Vec2 cameraPos, Vec2 cameraHalfExtents) override;

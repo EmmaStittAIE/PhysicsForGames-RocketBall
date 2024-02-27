@@ -18,9 +18,9 @@ protected:
 	// If not null, move this instead of children
 	PhysicsBody* m_parentPB = nullptr;
 
-	CollisionShape(float xPos, float yPos, ShapeType shapeType, Vec3 debugColour = { 1, 1, 1 })
+	CollisionShape(float xPos, float yPos, ShapeType shapeType, Vec3 debugColour = { 255, 255, 255 })
 		: CollisionBody(xPos, yPos, debugColour), m_shapeType(shapeType) {};
-	CollisionShape(Vec2 pos, ShapeType shapeType, Vec3 debugColour = { 1, 1, 1 })
+	CollisionShape(Vec2 pos, ShapeType shapeType, Vec3 debugColour = { 255, 255, 255 })
 		: CollisionBody(pos, debugColour), m_shapeType(shapeType) {};
 
 protected:
