@@ -13,8 +13,6 @@ protected:
 	std::vector<GameNode*> m_children;
 
 public:
-	std::string m_name;
-
 	Vec3 m_debugColour;
 
 	GameNode(Vec3 debugColour = { 255, 255, 255 })

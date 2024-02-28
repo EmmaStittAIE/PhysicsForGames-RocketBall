@@ -1,4 +1,5 @@
 #include <iostream>
+#include <random>
 
 #include "RocketBall.h"
 #include "CollisionBody.h"
@@ -55,6 +56,11 @@ RocketBall::RocketBall()
 	CollisionBox* boxPeg3 = new CollisionBox(-3, 3, 2, 2, { 213,176,124 });
 	CollisionBox* boxPeg4 = new CollisionBox(-9, 3, 2, 2, { 213,176,124 });
 
+	CollisionCircle* bigCirclePeg1 = new CollisionCircle(10, -5, 3, { 132, 36, 12 });
+	CollisionCircle* bigCirclePeg2 = new CollisionCircle(0, -5, 3, { 132, 36, 12 });
+	CollisionCircle* bigCirclePeg3 = new CollisionCircle(-10, -5, 3, { 132, 36, 12 });
+
+	// Attach everything to the root node
 	m_rootNode.AddChild(rightBoundsPlane);
 	m_rootNode.AddChild(leftBoundsPlane);
 	m_rootNode.AddChild(topBoundsPlane);
@@ -76,6 +82,16 @@ RocketBall::RocketBall()
 	m_rootNode.AddChild(boxPeg2);
 	m_rootNode.AddChild(boxPeg3);
 	m_rootNode.AddChild(boxPeg4);
+
+	m_rootNode.AddChild(bigCirclePeg1);
+	m_rootNode.AddChild(bigCirclePeg2);
+	m_rootNode.AddChild(bigCirclePeg3);
+
+	// Apply some impulses to the PhysicsBodies, just to make them bounce around a bit more
+	pachinkoBall->ApplyImpulse(Vec2(18, 15));
+	pachinkoBall2->ApplyImpulse(Vec2(-31, 24));
+	pachinkoSquare->ApplyImpulse(Vec2(-22, 7));
+	pachinkoRectangle->ApplyImpulse(Vec2(19, 29));
 
 	// Get shapes from m_gameNodes
 	m_collisionBodies = GetBodiesFromChildren(&m_rootNode);
