@@ -23,7 +23,6 @@ protected:
 	CollisionShape(Vec2 pos, ShapeType shapeType, Vec3 debugColour = { 255, 255, 255 })
 		: CollisionBody(pos, debugColour), m_shapeType(shapeType) {};
 
-protected:
 	virtual CollisionInfo CollideWithShape(CollisionShape* other) = 0;
 
 public:
