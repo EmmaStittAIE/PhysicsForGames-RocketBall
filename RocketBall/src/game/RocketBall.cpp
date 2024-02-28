@@ -23,7 +23,6 @@ RocketBall::RocketBall()
 	CollisionPlane* bottomLeftBoundsPlane = new CollisionPlane(-7.5, -15, -45, { 200, 0, 0 });
 
 	// PhysicsBodies
-	// TODO: apply a random impulse to these, just for fun
 	CollisionCircle* pachinkoBallCollider = new CollisionCircle(-5, 18, 1, { 195, 177, 225 });
 	PhysicsBody* pachinkoBall = new PhysicsBody(-5, 18, 2, false, true, { 255, 255, 255 });
 	pachinkoBall->AddChild(pachinkoBallCollider);

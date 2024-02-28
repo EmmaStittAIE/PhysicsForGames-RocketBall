@@ -65,6 +65,11 @@ void GameNode::RemoveChild(GameNode* child)
 	}
 }
 
+void GameNode::SetDebugColour(Vec3 debugColour)
+{
+	m_debugColour = debugColour / 255.0f;
+}
+
 GameNode::~GameNode()
 {
 	for (int i = 0; i < m_children.size(); i++)

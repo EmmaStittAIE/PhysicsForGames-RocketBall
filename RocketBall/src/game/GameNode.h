@@ -12,9 +12,9 @@ protected:
 
 	std::vector<GameNode*> m_children;
 
-public:
 	Vec3 m_debugColour;
 
+public:
 	GameNode(Vec3 debugColour = { 255, 255, 255 })
 		: m_debugColour(debugColour / 255.0f) {};
 
@@ -27,6 +27,9 @@ public:
 	const std::vector<GameNode*>* GetChildren();
 	void AddChild(GameNode* child);
 	void RemoveChild(GameNode* child);
+
+	// In the colour format (R, G, B)
+	void SetDebugColour(Vec3 debugColour);
 
 	~GameNode();
 };
