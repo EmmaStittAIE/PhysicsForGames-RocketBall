@@ -55,6 +55,11 @@ float CollisionBox::GetWidth()
 	return m_halfWidth * 2;
 }
 
+void CollisionBox::SetWidth(float width)
+{
+	m_halfWidth = width / 2;
+}
+
 float CollisionBox::GetHalfWidth()
 {
 	return m_halfWidth;
@@ -63,6 +68,11 @@ float CollisionBox::GetHalfWidth()
 float CollisionBox::GetHeight()
 {
 	return m_halfHeight * 2;
+}
+
+void CollisionBox::SetHeight(float height)
+{
+	m_halfHeight = height / 2;
 }
 
 float CollisionBox::GetHalfHeight()

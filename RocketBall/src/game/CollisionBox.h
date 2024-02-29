@@ -19,7 +19,9 @@ public:
 	CollisionInfo CollideWithShape(CollisionShape* other) override;
 
 	float GetWidth();
+	void SetWidth(float width);
 	float GetHalfWidth();
 	float GetHeight();
+	void SetHeight(float height);
 	float GetHalfHeight();
 };
