@@ -18,7 +18,7 @@ Physics:
 ### Planned
 Physics:
 - CollisionShapes
-	- Mesh
+	- Convex Polygon
  - Rotations
  - Rocket
  - Fixed & Spring Joints

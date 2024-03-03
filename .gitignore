@@ -1,7 +1,3 @@
-# General
-RocketBall/lib/*
-!RocketBall/lib/Required libraries.md
-
 # Visual Studio
 .vs/
 x64
