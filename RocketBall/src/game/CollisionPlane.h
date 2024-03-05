@@ -22,5 +22,6 @@ public:
 	Vec2 GetNormal();
 	void SetAngle(float angle);
 
+	float GetDistFromPoint(Vec2 point);
 	float GetDistFromOrigin();
 };

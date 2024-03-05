@@ -10,18 +10,23 @@ Vec2 CollisionPlane::GetTangent()
 
 void CollisionPlane::DebugDraw(LineRenderer* lines, Vec2 cameraPos, Vec2 cameraHalfExtents)
 {	
-	// I was going to do a whole thing here where I clipped the line to the exact edges of the camera, but I figured
-	// just setting the length to the maximum length it would need to be to fill the screen would be much faster
-	lines->SetColour(m_debugColour);
+	// If the plane is within a circle around the camera's corners, then we bother drawing it
+	// Would love to do some kind of complex culling here, but it's not worth the time investment
+	float maxDistToDrawSquared = std::pow(cameraHalfExtents.x, 2) + std::pow(cameraHalfExtents.y, 2);
 
-	Vec2 globalPos = GetGlobalPos();
+	if (std::pow(GetDistFromPoint(cameraPos), 2) <= maxDistToDrawSquared)
+	{
+		lines->SetColour(m_debugColour);
 
-	float halfLineLength = std::sqrt((cameraHalfExtents.x * cameraHalfExtents.x) + (cameraHalfExtents.y * cameraHalfExtents.y));
-	Vec2 halfTangent = GetTangent() * halfLineLength;
+		Vec2 globalPos = GetGlobalPos();
 
-	// Since we're ignoring the position of the plane, we want to use the offset from the global centre instead
-	lines->DrawLineSegment(globalPos - halfTangent, globalPos + halfTangent);
-	lines->DrawLineSegment(globalPos, globalPos + m_normal);
+		// Magic number because some set limit is required if I don't do the fancy culling technique
+		float halfLineLength = 2000;
+		Vec2 halfTangent = GetTangent() * halfLineLength;
+
+		lines->DrawLineSegment(globalPos - halfTangent, globalPos + halfTangent);
+		lines->DrawLineSegment(globalPos, globalPos + m_normal);
+	}
 }
 
 CollisionInfo CollisionPlane::CollideWithShape(CollisionShape* other)
@@ -55,6 +60,11 @@ void CollisionPlane::SetAngle(float angle)
 {
 	float radAngle = angle * degToRad;
 	m_normal = Vec2(-std::sin(radAngle), std::cos(radAngle));
+}
+
+float CollisionPlane::GetDistFromPoint(Vec2 point)
+{
+	return glm::dot(point, m_normal) - GetDistFromOrigin();
 }
 
 float CollisionPlane::GetDistFromOrigin()

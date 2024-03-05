@@ -115,7 +115,7 @@ CollisionInfo CollisionFunctions::CollideCircleWithPlane(CollisionCircle* circle
 	collision.shape1 = circle;
 	collision.shape2 = plane;
 
-	collision.penetrationDepth = -(glm::dot(circle->GetGlobalPos(), plane->GetNormal()) - plane->GetDistFromOrigin() - circle->GetRadius());
+	collision.penetrationDepth = -(plane->GetDistFromPoint(circle->GetGlobalPos()) - circle->GetRadius());
 	// The normal needs to be reversed, as the plane is going to be treated as "shape2"
 	collision.normal = -plane->GetNormal();
 
@@ -193,7 +193,6 @@ CollisionInfo CollisionFunctions::CollideBoxWithPlane(CollisionBox* box, Collisi
 	Vec2 boxGlobalPos = box->GetGlobalPos();
 	Vec2 boxHalfExtents = { box->GetHalfWidth(), box->GetHalfHeight() };
 
-	Vec2 planeNormal = plane->GetNormal();
 	float planeDistFromOrigin = plane->GetDistFromOrigin();
 
 	Vec2 boxPoints[4]
@@ -207,7 +206,7 @@ CollisionInfo CollisionFunctions::CollideBoxWithPlane(CollisionBox* box, Collisi
 	float deepestCollision = -FLT_MAX;
 	for (int i = 0; i < 4; i++)
 	{
-		float collisionDepth = -(glm::dot(boxPoints[i], planeNormal) - planeDistFromOrigin);
+		float collisionDepth = -plane->GetDistFromPoint(boxPoints[i]);
 
 		if (collisionDepth > deepestCollision)
 		{
@@ -336,6 +335,5 @@ bool CollisionFunctions::DoesPointHitBox(Vec2 point, CollisionBox* box)
 
 bool CollisionFunctions::DoesPointHitPlane(Vec2 point, CollisionPlane* plane)
 {
-
-	return (glm::dot(point, plane->GetNormal()) - plane->GetDistFromOrigin()) < 0;
+	return plane->GetDistFromPoint(point) < 0;
 }
